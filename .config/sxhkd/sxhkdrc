@@ -166,3 +166,7 @@ super + shift + f
 # Screenshot - Active Window
 super + shift + w
     maim -i $(xdotool getactivewindow) ~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && notify-send "Screenshot (window) saved"
+
+super + shift + u
+    ~/Scripts/network.sh
+    

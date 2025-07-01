@@ -18,7 +18,15 @@ set showcmd
 set t_Co=256
 
 " Use UTF-8 encoding for all file operations and display
-set encoding=UTF-8
+set encoding=utf-8
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved
+set signcolumn=yes
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
 
 " Do not wrap long lines; let lines scroll horizontally
 set nowrap
@@ -108,20 +116,17 @@ set nolangremap
 
 " Correctly highlight $() and other modern affordances in filetype=sh.
 if !exists('g:is_posix') && !exists('g:is_bash') && !exists('g:is_kornshell') && !exists('g:is_dash')
-  let g:is_posix = 1
+let g:is_posix = 1
 endif
 
 " Enable the :Man command shipped inside Vim's man filetype plugin.
 if exists(':Man') != 2 && !exists('g:loaded_man') && &filetype !=? 'man' && !has('nvim')
-  runtime ftplugin/man.vim
+runtime ftplugin/man.vim
 endif
 
 " Use CTRL-L to clear the highlighting of 'hlsearch' (off by default) and call
 " :diffupdate.
 nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
-
-" Smart <Tab> file path popup in insert mode
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : (getline('.')[col('.')-2] =~ '[/~]' ? "\<C-x>\<C-f>" : "\<Tab>")
 
 " Exit insert mode by pressing 'kj' inoremap kj <Esc>
 inoremap kj <Esc>
@@ -144,17 +149,120 @@ nnoremap <leader>p :bprevious<CR>
 nnoremap <leader>ev :e $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
-" Format the current buffer with clang-format
-nnoremap <silent> <F3> :%!clang-format<CR>
-
-autocmd FileType cpp,c,h,hpp nnoremap <buffer> <F3> :%!clang-format<CR>
-autocmd BufWritePre *.cpp,*.hpp,*.cc,*.h :silent! execute ':%!clang-format'
-
 call plug#begin('~/.vim/plugged')
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
+
+" coc.nvim configuration
+"
+" Use tab for trigger completion with characters ahead and navigate
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config
+inoremap <silent><expr> <TAB>
+  \ coc#pum#visible() ? coc#pum#next(1) :
+  \ CheckBackspace() ? "\<Tab>" :
+  \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                          \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+function! CheckBackspace() abort
+let col = col('.') - 1
+return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion
+if has('nvim')
+inoremap <silent><expr> <c-space> coc#refresh()
+else
+inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
+nnoremap <silent><nowait> [g <Plug>(coc-diagnostic-prev)
+nnoremap <silent><nowait> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation
+nnoremap <silent><nowait> gd <Plug>(coc-definition)
+nnoremap <silent><nowait> gy <Plug>(coc-type-definition)
+nnoremap <silent><nowait> gi <Plug>(coc-implementation)
+nnoremap <silent><nowait> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+if CocAction('hasProvider', 'hover')
+call CocActionAsync('doHover')
+else
+call feedkeys('K', 'in')
+endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming
+nnoremap <leader>rn <Plug>(coc-rename)
+
+" LSP formatting
+nnoremap <silent> <leader>f :call CocAction('format')<CR>
+
+" Fallback: Manual clang-format (uncomment if needed)
+" nnoremap <silent> <leader>f :silent keepjumps %!clang-format<CR>
+
+" Auto-format on save (with error handling)
+augroup autoformat_cpp
+  autocmd!
+  autocmd BufWritePre *.cpp,*.hpp,*.c,*.h silent! call CocAction('format')
+augroup end
+
+" Applying code actions to the selected code block
+" Example: `<leader>aap` for current paragraph
+" xnoremap <leader>a  <Plug>(coc-codeaction-selected)
+" nnoremap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying code actions at the cursor position
+nnoremap <leader>ac  <Plug>(coc-codeaction-cursor)
+" Remap keys for apply code actions affect whole buffer
+nnoremap <leader>as  <Plug>(coc-codeaction-source)
+" Apply the most preferred quickfix action to fix diagnostic on the current line
+nnoremap <leader>qf  <Plug>(coc-fix-current)
+
+" Remap keys for applying refactor code actions
+nnoremap <silent> <leader>re <Plug>(coc-codeaction-refactor)
+xnoremap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+nnoremap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+
+" Run the Code Lens action on the current line
+nnoremap <leader>cl  <Plug>(coc-codelens-action)
+
+" Remap <C-f> and <C-b> to scroll float windows/popups
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+" Mappings for CoCList
+" Show all diagnostics
+nnoremap <silent><nowait> <leader>a  :<C-u>CocList diagnostics<cr>
+" Find symbol of current document
+nnoremap <silent><nowait> <leader>o  :<C-u>CocList outline<cr>
+
+" Restart coc.nvim
+nnoremap <silent> <leader>cr :CocRestart<CR>
 
 " Colorscheme
 colorscheme catppuccin_mocha
@@ -174,6 +282,20 @@ highlight LineNr       guibg=NONE guifg=fg
 " Set visual selection background (no bold, no foreground change)
 highlight Visual       cterm=NONE ctermbg=236 ctermfg=NONE
 highlight Visual       gui=NONE  guibg=#4f5368 guifg=NONE
+
+" Popup menu (completion list)
+highlight Pmenu        guibg=#1e1e2e guifg=#cdd6f4
+highlight PmenuSel     guibg=#585b70 guifg=#f5e0dc
+highlight PmenuThumb   guibg=#45475a
+highlight PmenuSbar    guibg=#313244
+
+" Coc.nvim floating window and menu selection
+highlight CocFloating  guibg=#1e1e2e guifg=#cdd6f4
+highlight CocMenuSel   guibg=#585b70 guifg=#f5e0dc
+
+" Coc.nvim specific popup menu elements
+highlight PmenuKind    guifg=#89b4fa
+highlight PmenuExtra   guifg=#f2cdcd
 
 " Function to generate a list of all relevant Vim register names
 function! s:GetRegisterList()
