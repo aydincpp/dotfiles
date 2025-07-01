@@ -1,0 +1,39 @@
+{
+  "languageserver": {
+    "clangd": {
+      "command": "clangd",
+      "filetypes": ["c", "cpp", "h", "hpp"],
+      "initializationOptions": {
+        "clangdFileStatus": true
+      },
+      "args": ["--background-index", "--clang-tidy"]
+    }
+  },
+  "suggest.completionItemKindLabels": {
+    "text": "",
+    "method": "󰆧",
+    "function": "󰊕",
+    "constructor": "",
+    "field": "",
+    "variable": "󰫧",
+    "class": "",
+    "interface": "",
+    "module": "󰮄",
+    "property": "",
+    "unit": "󰰧",
+    "value": "󰎠",
+    "enum": "",
+    "enumMember": "",
+    "keyword": "",
+    "snippet": "",
+    "color": "",
+    "file": "",
+    "reference": "",
+    "folder": "",
+    "constant": "",
+    "struct": "",
+    "event": "",
+    "operator": "",
+    "typeParameter": "󰰤"
+  }
+}
