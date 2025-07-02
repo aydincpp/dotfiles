@@ -225,15 +225,12 @@ augroup autoformat_cpp
   autocmd BufWritePre *.cpp,*.hpp,*.c,*.h silent! call CocAction('format')
 augroup end
 
-" Applying code actions to the selected code block
-" Example: `<leader>aap` for current paragraph
-" xnoremap <leader>a  <Plug>(coc-codeaction-selected)
-" nnoremap <leader>a  <Plug>(coc-codeaction-selected)
+" Code actions (selected, cursor, and source)
+xnoremap <leader>ca  <Plug>(coc-codeaction-selected)
+nnoremap <leader>ca  <Plug>(coc-codeaction-selected)
+nnoremap <leader>cc  <Plug>(coc-codeaction-cursor)
+nnoremap <leader>cs  <Plug>(coc-codeaction-source)
 
-" Remap keys for applying code actions at the cursor position
-nnoremap <leader>ac  <Plug>(coc-codeaction-cursor)
-" Remap keys for apply code actions affect whole buffer
-nnoremap <leader>as  <Plug>(coc-codeaction-source)
 " Apply the most preferred quickfix action to fix diagnostic on the current line
 nnoremap <leader>qf  <Plug>(coc-fix-current)
 
@@ -257,7 +254,7 @@ endif
 
 " Mappings for CoCList
 " Show all diagnostics
-nnoremap <silent><nowait> <leader>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <leader>cd  :<C-u>CocList diagnostics<cr>
 " Find symbol of current document
 nnoremap <silent><nowait> <leader>o  :<C-u>CocList outline<cr>
 

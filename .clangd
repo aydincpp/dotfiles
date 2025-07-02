@@ -1,0 +1,13 @@
+Diagnostics:
+  ClangTidy:
+    FastCheckFilter: Strict
+  UnusedIncludes: None
+
+InlayHints:
+  Enabled: true
+  BlockEnd: false
+  Designators: false
+  ParameterNames: true
+  DeducedTypes: true
+  DefaultArguments: true
+  TypeNameLimit: 24
