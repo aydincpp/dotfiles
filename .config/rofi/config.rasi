@@ -1,4 +1,7 @@
-
 //@theme "/usr/share/rofi/themes/purple.rasi"
 
-@theme "/home/aydin/.config/rofi/themes/rounded-purple-dark.rasi"
+//@theme "/home/aydin/.config/rofi/themes/rounded-purple-dark.rasi"
+
+//@theme "/home/aydin/.config/rofi/themes/simple-tokyonight.rasi"
+
+@theme "/home/aydin/.config/rofi/themes/tokyonight.rasi"

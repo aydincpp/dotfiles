@@ -1,0 +1,111 @@
+* {
+    bg: #24283b;
+    hv: #9274ca;
+    primary: #C5C8C6;
+    ug: #0B2447;
+    font: "Monospace 11";
+    kl: #7aa2f7;
+    black: #000000;
+    transparent: rgba(46,52,64,0);
+
+    background-color: @bg;
+}
+
+window {
+    width: 400;
+    orientation: horizontal;
+    location: south west;
+    anchor: south west;
+    transparency: "screenshot";
+    border-color: @transparent;
+    border-radius: 0;
+    spacing: 0;
+    children: [ mainbox ];
+}
+
+mainbox {
+    spacing: 0;
+    children: [ inputbar, message, listview ];
+}
+
+inputbar {
+    color: @kl;
+    padding: 11px;
+    border-color: @primary;
+    border-radius: 0;
+}
+
+message {
+    padding: 0;
+    border-color: @primary;
+}
+
+entry, prompt, case-indicator {
+    text-font: inherit;
+    text-color: inherit;
+}
+
+entry {
+    cursor: pointer;
+}
+
+prompt {
+    margin: 0px 5px 0px 0px;
+}
+
+listview {
+    layout: vertical;
+    padding: 8px;
+    lines: 12;
+    columns: 1;
+    border-radius: 0;
+    border-color: @primary;
+    dynamic: false;
+}
+
+element {
+    padding: 2px;
+    vertical-align: 1;
+    color: @kl;
+    font: inherit;
+}
+
+element-text, element-icon {
+    background-color: inherit;
+    text-color: inherit;
+}
+
+element selected.normal {
+    color: @primary;
+    background-color: @hv;
+}
+
+element normal active {
+    background-color: @hv;
+    color: @black;
+}
+
+element normal urgent {
+    background-color: @primary;
+}
+
+element selected active {
+    background: @hv;
+    foreground: @bg;
+}
+
+button {
+    padding: 6px;
+    color: @primary;
+    horizonatal-align: 0.5;
+    border-radius: 4px 0px 0px 4px;
+    border-color: @primary;
+}
+
+button selected normal {
+    border-color: @primary;
+}
+
+scrollbar {
+    enabled: true;
+}
