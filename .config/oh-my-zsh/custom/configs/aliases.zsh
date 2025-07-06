@@ -15,7 +15,7 @@ alias ....="cd ../../.."
 alias make='make -j$(nproc)'
 
 # Send files to trash instead of permanently deleting them
-alias rm='trash-put'
+# alias rm='trash-put'
 
 # Automatically reload .zshrc when it changes
 alias reload="source ~/.zshrc"

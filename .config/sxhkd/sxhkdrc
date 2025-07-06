@@ -2,6 +2,9 @@
 # wm independent hotkeys
 #
 
+# Up
+#     bspc node -c
+
 # terminal emulator
 super + Return
 	alacritty
@@ -34,8 +37,6 @@ super + alt + {q,r}
 super + w
 	bspc node -c
 
-# Up
-#     bspc node -{c,k}
 
 # alternate between the tiled and monocle layout
 super + m

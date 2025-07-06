@@ -2,7 +2,6 @@ Checks: >
   modernize-*,
   readability-identifier-naming,
   readability-braces-around-statements,
-  readability-magic-numbers,
   performance-*,
   clang-analyzer-*,
   cppcoreguidelines-*

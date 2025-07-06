@@ -1,13 +1,14 @@
 Diagnostics:
   ClangTidy:
+    Remove: modernize-use-trailing-return-type
     FastCheckFilter: Strict
   UnusedIncludes: None
 
 InlayHints:
-  Enabled: true
+  Enabled: false
   BlockEnd: false
   Designators: false
-  ParameterNames: true
-  DeducedTypes: true
-  DefaultArguments: true
+  ParameterNames: false
+  DeducedTypes: false
+  DefaultArguments: false
   TypeNameLimit: 24

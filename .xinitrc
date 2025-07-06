@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Start sxhkd before bspwm
 sxhkd &
 
