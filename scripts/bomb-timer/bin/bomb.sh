@@ -2,7 +2,7 @@
 
 total=1800
 id=9999
-icon="$HOME/.local/share/bomb-timer/bomb_icon.png"
+icon="$HOME/.local/share/bomb-timer/bomb.png"
 bomb_start="$HOME/.local/share/bomb-timer/bomb_start.mp3"
 bomb_finish="$HOME/.local/share/bomb-timer/bomb_finish.mp3"
 pid_file="/tmp/bomb.pid"
