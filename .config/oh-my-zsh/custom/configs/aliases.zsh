@@ -17,6 +17,10 @@ alias make='make -j$(nproc)'
 # Send files to trash instead of permanently deleting them
 # alias rm='trash-put'
 
+# Enable warnings when using gcc/g++
+alias g++="g++ -Wall -Wextra"
+alias gcc="gcc -Wall -Wextra"
+
 # Automatically reload .zshrc when it changes
 alias reload="source ~/.zshrc"
 
