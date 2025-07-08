@@ -18,7 +18,7 @@ bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
 # Set wallpaper
-feh --bg-scale ~/Pictures/wallpapers/pexels-elijahsad.jpg
+feh --bg-fill ~/Pictures/wallpapers/pexels-elijahsad.jpg
 
 # Start picom
 pkill picom
