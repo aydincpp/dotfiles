@@ -147,13 +147,39 @@ nnoremap <leader>p :bprevious<CR>
 
 " Open .vimrc for quick editing and reloading
 nnoremap <leader>ev :e $MYVIMRC<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
+
+" Horizontal split
+nnoremap <Leader>sh :split<CR>
+
+" Vertical split
+nnoremap <Leader>sv :vsplit<CR>
+
+" Better navigation between splits
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Go to next tab
+nnoremap <leader>tn :tabnext<CR>
+
+" Go to previous tab
+nnoremap <leader>tp :tabprevious<CR>
+
+" Go to first tab
+nnoremap <leader>tf :tabfirst<CR>
+
+" Go to last tab
+nnoremap <leader>tl :tablast<CR>
 
 call plug#begin('~/.vim/plugged')
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'kshenoy/vim-signature'
 call plug#end()
 
 " coc.nvim configuration
@@ -261,6 +287,44 @@ nnoremap <silent><nowait> <leader>o  :<C-u>CocList outline<cr>
 " Restart coc.nvim
 nnoremap <silent> <leader>cr :CocRestart<CR>
 
+" fzf.vim configuration
+
+" Initialize configuration dictionary
+let g:fzf_vim = {}
+
+let g:fzf_layout = {'window': { 'width': 0.7, 'height': 0.6, 'yoffset': 0.5, 'xoffset': 0.5, 'relative': v:false, 'border': 'sharp' } }
+let g:fzf_vim.preview_window = ['right:50%:border-sharp', 'ctrl-/']
+
+let g:fzf_vim.tags_command = 'ctags -R --languages=C++ --fields=+l --extras=+q'
+
+" Fuzzy find files in the current directory
+nnoremap <Leader>sf :Files<CR> 
+
+" Fuzzy find git-tracked files
+nnoremap <Leader>sg :GFiles<CR>
+
+" Switch between open buffers
+nnoremap <Leader>sb :Buffers<CR>
+
+" Search inside current buffer
+nnoremap <Leader>sl :BLines<CR>
+
+" Search across project
+nnoremap <Leader>sp :Rg<CR>
+
+" Fuzzy find tags
+nnoremap <Leader>st :Tags<CR>
+
+" Jump to marks
+nnoremap <Leader>sm :Marks<CR>
+
+" Recently used files
+nnoremap <Leader>sr :History<CR>
+
+" Fuzzy find commands
+nnoremap <Leader>sc :Commands<CR>
+
+
 " Colorscheme
 colorscheme catppuccin_mocha
 
@@ -293,6 +357,10 @@ highlight CocMenuSel   guibg=#585b70 guifg=#f5e0dc
 " Coc.nvim specific popup menu elements
 highlight PmenuKind    guifg=#89b4fa
 highlight PmenuExtra   guifg=#f2cdcd
+
+:set fillchars+=vert:\ 
+
+highlight VertSplit cterm=NONE
 
 " Function to generate a list of all relevant Vim register names
 function! s:GetRegisterList()
@@ -327,3 +395,32 @@ function! ClearAllRegisters()
   endif
 endfunction
 
+highlight TabLineSel  guibg=#313244 guifg=#cdd6f4 gui=bold
+highlight TabLine     guibg=#1e1e2e guifg=#585b70
+highlight TabLineFill guibg=#1e1e2e guifg=#585b70
+
+function! MyTabLine()
+  let s = ''
+  for i in range(tabpagenr('$'))
+    let tabnr = i + 1
+    if tabnr == tabpagenr()
+      let s .= '%#TabLineSel#'
+    else
+      let s .= '%#TabLine#'
+    endif
+    let buflist = tabpagebuflist(tabnr)
+    let winnr = tabpagewinnr(tabnr)
+    let bufname = bufname(buflist[winnr - 1])
+    if bufname == ''
+      let bufname = '[No Name]'
+    else
+      let bufname = fnamemodify(bufname, ':t')
+    endif
+    let s .= '   ' . tabnr . ': ' . bufname . ' '
+  endfor
+  let s .= '%#TabLineFill#%='
+  return s
+endfunction
+
+set showtabline=1
+set tabline=%!MyTabLine()
