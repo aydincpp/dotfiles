@@ -94,6 +94,30 @@ super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
 #
+# Send window
+#
+
+# Send focused window to desktop 1
+super + shift + 1
+    bspc node -d 1
+
+# Send focused window to desktop 2
+super + shift + 2
+    bspc node -d 2
+
+# Send focused window to desktop 3
+super + shift + 3
+    bspc node -d 3
+
+# Send focused window to desktop 4
+super + shift + 4
+    bspc node -d 4
+
+# Send focused window to desktop 5
+super + shift + 5
+    bspc node -d 5
+
+#
 # preselect
 #
 
