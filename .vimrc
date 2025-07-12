@@ -126,7 +126,12 @@ endif
 
 " Use CTRL-L to clear the highlighting of 'hlsearch' (off by default) and call
 " :diffupdate.
-nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+nnoremap <silent> <leader>nl :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+
+" Center the screen after jumping
+nnoremap n nzz
+nnoremap N Nzz
+
 
 " Exit insert mode by pressing 'kj' inoremap kj <Esc>
 inoremap kj <Esc>
