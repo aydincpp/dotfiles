@@ -1,135 +1,112 @@
+---
 Checks: >
   modernize-*,
   readability-identifier-naming,
   readability-braces-around-statements,
-  performance-*,
-  clang-analyzer-*,
-  cppcoreguidelines-*
+  performance-*
 
 CheckOptions:
-  # Class names use PascalCase
   - key: readability-identifier-naming.ClassCase
     value: CamelCase
 
-  # Instance member variables by access level with prefixes
   - key: readability-identifier-naming.PrivateMemberPrefix
     value: m_
   - key: readability-identifier-naming.ProtectedMemberPrefix
     value: p_
   - key: readability-identifier-naming.PublicMemberPrefix
-    value: ''
+    value: ""
 
-  # Instance member methods by access level with prefixes
   - key: readability-identifier-naming.PrivateMethodPrefix
     value: m_
   - key: readability-identifier-naming.ProtectedMethodPrefix
     value: p_
   - key: readability-identifier-naming.PublicMethodPrefix
-    value: ''
+    value: ""
 
-  # Static variables use 's_' prefix and lower_case
   - key: readability-identifier-naming.StaticVariableCase
     value: lower_case
   - key: readability-identifier-naming.StaticVariablePrefix
     value: s_
 
-  # Constexpr variables use PascalCase with 'k' prefix
   - key: readability-identifier-naming.ConstexprVariableCase
     value: CamelCase
   - key: readability-identifier-naming.ConstexprVariablePrefix
     value: k
 
-  # Enum types use PascalCase
   - key: readability-identifier-naming.EnumCase
     value: CamelCase
 
-  # Enum constants use PascalCase with 'k' prefix
   - key: readability-identifier-naming.EnumConstantCase
     value: CamelCase
   - key: readability-identifier-naming.EnumConstantPrefix
-    value: k
+    value: ""
 
-  # Scoped enum constants follow same rule as enums
   - key: readability-identifier-naming.ScopedEnumConstantCase
     value: CamelCase
   - key: readability-identifier-naming.ScopedEnumConstantPrefix
     value: k
 
-  # Free (global) functions: camelCase, no prefix or suffix
   - key: readability-identifier-naming.GlobalFunctionCase
     value: camelBack
   - key: readability-identifier-naming.GlobalFunctionPrefix
-    value: ''
+    value: ""
   - key: readability-identifier-naming.GlobalFunctionSuffix
-    value: ''
+    value: ""
 
-  # Member functions (non-constexpr): camelCase, no prefix or suffix
   - key: readability-identifier-naming.FunctionCase
     value: camelBack
   - key: readability-identifier-naming.FunctionPrefix
-    value: ''
+    value: ""
   - key: readability-identifier-naming.FunctionSuffix
-    value: ''
+    value: ""
   - key: readability-identifier-naming.FunctionIgnoredRegexp
-    value: ''
+    value: ""
 
-  # Constexpr functions (free or member): camelCase, no prefix or suffix
   - key: readability-identifier-naming.ConstexprFunctionCase
     value: camelBack
   - key: readability-identifier-naming.ConstexprFunctionPrefix
-    value: ''
+    value: ""
   - key: readability-identifier-naming.ConstexprFunctionSuffix
-    value: ''
+    value: ""
 
-  # Member
   - key: readability-identifier-naming.MethodCase
     value: camelBack
 
-  # Virtual methods: camelCase
   - key: readability-identifier-naming.VirtualMethodCase
     value: camelBack
 
-  # Constexpr methods: camelCase
   - key: readability-identifier-naming.ConstexprMethodCase
     value: camelBack
 
-  # Global constants use PascalCase with 'k' prefix
   - key: readability-identifier-naming.GlobalConstantCase
     value: CamelCase
   - key: readability-identifier-naming.GlobalConstantPrefix
     value: k
 
-  # Static constants use PascalCase with 'k' prefix
   - key: readability-identifier-naming.StaticConstantCase
     value: CamelCase
   - key: readability-identifier-naming.StaticConstantPrefix
     value: k
 
-  # Macros use all UPPER_CASE
   - key: readability-identifier-naming.MacroDefinitionCase
     value: UPPER_CASE
 
-  # Ignore macros like include guards
   - key: readability-identifier-naming.MacroDefinitionIgnoredRegexp
-    value: '^[A-Z]+(_[A-Z]+)*_$'
+    value: "^[A-Z]+(_[A-Z]+)*_$"
 
-  # Namespaces use lower_case
   - key: readability-identifier-naming.NamespaceCase
     value: lower_case
 
-  # Parameters and pointer parameters use lower_case
   - key: readability-identifier-naming.ParameterCase
     value: lower_case
   - key: readability-identifier-naming.PointerParameterCase
     value: lower_case
 
-  # Type aliases and typedefs use PascalCase
   - key: readability-identifier-naming.TypeAliasCase
     value: CamelCase
   - key: readability-identifier-naming.TypedefCase
     value: CamelCase
 
-  # Variables (non-member) use lower_case
   - key: readability-identifier-naming.VariableCase
     value: lower_case
   - key: readability-identifier-naming.GlobalVariableCase
@@ -137,12 +114,12 @@ CheckOptions:
   - key: readability-identifier-naming.LocalVariableCase
     value: lower_case
 
-  # Template parameters use PascalCase
   - key: readability-identifier-naming.TemplateParameterCase
     value: CamelCase
 
-  # Ignore 'main' and similar functions for naming
   - key: readability-identifier-naming.Verbosity
     value: 1
   - key: readability-identifier-naming.IgnoreMainLikeFunctions
     value: 1
+---
+

@@ -248,7 +248,7 @@ nnoremap <silent> <leader>f :call CocAction('format')<CR>
 " Auto-format on save (with error handling)
 augroup autoformat_cpp
   autocmd!
-  autocmd BufWritePre *.cpp,*.hpp,*.c,*.h silent! call CocAction('format')
+  autocmd BufWritePre *.cpp,*.hpp,*.c,*.h,*.json,*.yaml silent! call CocAction('format')
 augroup end
 
 " Code actions (selected, cursor, and source)

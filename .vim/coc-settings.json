@@ -1,39 +1,58 @@
 {
-  "languageserver": {
-    "clangd": {
-      "command": "clangd",
-      "filetypes": ["c", "cpp", "h", "hpp"],
-      "initializationOptions": {
-        "clangdFileStatus": true
-      },
-      "args": ["--background-index", "--clang-tidy"]
+    "yaml.format.enable": true,
+    "json.format.enable": true,
+    "languageserver": {
+        "clangd": {
+            "command": "clangd",
+            "filetypes": [
+                "c",
+                "cpp",
+                "h",
+                "hpp"
+            ],
+            "rootPatterns": [
+                ".clangd",
+                ".clang-tidy",
+                "compile_commands.json",
+                ".git"
+            ],
+            "args": [
+                "--background-index",
+                "--clang-tidy",
+                "--completion-style=detailed",
+                "--header-insertion=never",
+                "--fallback-style=WebKit"
+            ],
+            "initializationOptions": {
+                "clangdFileStatus": true
+            },
+        }
+    },
+    "suggest.completionItemKindLabels": {
+        "text": "",
+        "method": "󰆧",
+        "function": "󰊕",
+        "constructor": "",
+        "field": "",
+        "variable": "󰫧",
+        "class": "",
+        "interface": "",
+        "module": "󰮄",
+        "property": "",
+        "unit": "󰰧",
+        "value": "󰎠",
+        "enum": "",
+        "enumMember": "",
+        "keyword": "",
+        "snippet": "",
+        "color": "",
+        "file": "",
+        "reference": "",
+        "folder": "",
+        "constant": "",
+        "struct": "",
+        "event": "",
+        "operator": "",
+        "typeParameter": "󰰤"
     }
-  },
-  "suggest.completionItemKindLabels": {
-    "text": "",
-    "method": "󰆧",
-    "function": "󰊕",
-    "constructor": "",
-    "field": "",
-    "variable": "󰫧",
-    "class": "",
-    "interface": "",
-    "module": "󰮄",
-    "property": "",
-    "unit": "󰰧",
-    "value": "󰎠",
-    "enum": "",
-    "enumMember": "",
-    "keyword": "",
-    "snippet": "",
-    "color": "",
-    "file": "",
-    "reference": "",
-    "folder": "",
-    "constant": "",
-    "struct": "",
-    "event": "",
-    "operator": "",
-    "typeParameter": "󰰤"
-  }
 }
