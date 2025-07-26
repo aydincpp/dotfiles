@@ -135,7 +135,6 @@ nnoremap <silent> <leader>nl :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<C
 nnoremap n nzz
 nnoremap N Nzz
 
-
 " Exit insert mode by pressing 'kj' inoremap kj <Esc>
 inoremap kj <Esc>
 
@@ -345,42 +344,60 @@ nnoremap <Leader>sr :History<CR>
 " Fuzzy find commands
 nnoremap <Leader>sc :Commands<CR>
 
-
 " Colorschemes
 colorscheme catppuccin_mocha
 
-" Make main editing area, inactive windows, sign column, splits, line numbers, folds, and non-text fully transparent
-" highlight Normal       guibg=NONE ctermbg=NONE
-" highlight NormalNC     guibg=NONE ctermbg=NONE
-" highlight SignColumn   guibg=NONE ctermbg=NONE
-" highlight VertSplit    guibg=NONE ctermbg=NONE
-" highlight LineNr       guibg=NONE ctermbg=NONE
-" highlight Folded       guibg=NONE ctermbg=NONE
-" highlight NonText      guibg=NONE ctermbg=NONE
+let g:transparent_enabled = 0
 
-" Match line number foreground to normal text
-" highlight LineNr       guibg=NONE guifg=fg
+" Function to toggle transparency
+function! ToggleTransparency()
+  if g:transparent_enabled
+    colorscheme catppuccin_mocha
+    let g:transparent_enabled = 0
+  else
+    " Make main editing area, inactive windows, sign column, splits, line numbers, folds, and non-text fully transparent
+    highlight Normal       guibg=NONE ctermbg=NONE
+    highlight NormalNC     guibg=NONE ctermbg=NONE
+    highlight SignColumn   guibg=NONE ctermbg=NONE
+    highlight VertSplit    guibg=NONE ctermbg=NONE
+    highlight LineNr       guibg=NONE ctermbg=NONE
+    highlight Folded       guibg=NONE ctermbg=NONE
+    highlight NonText      guibg=NONE ctermbg=NONE
 
-" Set visual selection background (no bold, no foreground change)
-" highlight Visual       cterm=NONE ctermbg=236 ctermfg=NONE
-" highlight Visual       gui=NONE  guibg=#4f5368 guifg=NONE
+    " Match line number foreground to normal text
+    highlight LineNr       guibg=NONE guifg=fg
 
-" Popup menu (completion list)
-" highlight Pmenu        guibg=#1e1e2e guifg=#cdd6f4
-" highlight PmenuSel     guibg=#585b70 guifg=#f5e0dc
-" highlight PmenuThumb   guibg=#45475a
-" highlight PmenuSbar    guibg=#313244
+    " Set visual selection background (no bold, no foreground change)
+    highlight Visual       cterm=NONE ctermbg=236 ctermfg=NONE
+    highlight Visual       gui=NONE  guibg=#4f5368 guifg=NONE
 
-" Coc.nvim floating window and menu selection
-" highlight CocFloating  guibg=#1e1e2e guifg=#cdd6f4
-" highlight CocMenuSel   guibg=#585b70 guifg=#f5e0dc
+    " Popup menu (completion list)
+    highlight Pmenu        guibg=#1e1e2e guifg=#cdd6f4
+    highlight PmenuSel     guibg=#585b70 guifg=#f5e0dc
+    highlight PmenuThumb   guibg=#45475a
+    highlight PmenuSbar    guibg=#313244
 
-" Coc.nvim specific popup menu elements
-" highlight PmenuKind    guifg=#89b4fa
-" highlight PmenuExtra   guifg=#f2cdcd
+    " Coc.nvim floating window and menu selection
+    highlight CocFloating  guibg=#1e1e2e guifg=#cdd6f4
+    highlight CocMenuSel   guibg=#585b70 guifg=#f5e0dc
 
+    " Coc.nvim specific popup menu elements
+    highlight PmenuKind    guifg=#89b4fa
+    highlight PmenuExtra   guifg=#f2cdcd
+
+    let g:transparent_enabled = 1
+  endif
+endfunction
+
+" Define a user command :ToggleTransparency that calls ToggleTransparency()
+command! ToggleTransparency call ToggleTransparency()
+
+" Add a space character as the vertical separator (column between splits)
+" This overrides the default '|' split bar with a blank space
 :set fillchars+=vert:\ 
 
+" Remove any special styling (like reverse or bold) from vertical splits
+" This makes the split line visually minimal when combined with the blank `fillchars`
 highlight VertSplit cterm=NONE
 
 " Function to generate a list of all relevant Vim register names
@@ -446,8 +463,6 @@ set showtabline=1
 set tabline=%!MyTabLine()
 
 
- 
- 
  
 " Statusline
 
