@@ -21,7 +21,7 @@ export EDITOR="vim"
 export VISUAL="vim"
 
 # Specify the terminal type (used by some apps for capability detection)
-export TERM="alacritty"
+export TERM="xterm-256color"
 
 # Enable true color support in terminal applications
 export COLORTERM="truecolor"
