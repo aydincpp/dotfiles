@@ -16,6 +16,7 @@ set showcmd
 
 " Set terminal colors to 256-color mode (useful for modern terminals)
 set t_Co=256
+set term=screen-256color
 
 " Use UTF-8 encoding for all file operations and display
 set encoding=utf-8
@@ -47,7 +48,9 @@ filetype plugin off
 syntax on
 
 " Terminal GUI colors
-set termguicolors
+if has("termguicolors")
+  set termguicolors
+endif
 
 " Set the number of spaces that a <Tab> counts for
 set tabstop=4
@@ -147,8 +150,8 @@ nnoremap <leader>q :q<CR>
 nnoremap <leader>Q :q!<CR>
 
 " Better buffer switching
-nnoremap <leader>n :bnext<CR>
-nnoremap <leader>p :bprevious<CR>
+nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>bp :bprevious<CR>
 
 " Open .vimrc for quick editing and reloading
 nnoremap <leader>ev :e $MYVIMRC<CR>
@@ -179,13 +182,18 @@ nnoremap <leader>tl :tablast<CR>
 
 call plug#begin('~/.vim/plugged')
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'ghifarit53/tokyonight-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'kshenoy/vim-signature'
+" Plug 'kshenoy/vim-signature'
+" Plug 'tpope/vim-surround'
 call plug#end()
+
+" Vim signature configuration
+" nnoremap <leader>m] ]`zz
+" nnoremap <leader>m[ [`zz
 
 " coc.nvim configuration
 "
@@ -215,6 +223,14 @@ inoremap <silent><expr> <c-space> coc#refresh()
 else
 inoremap <silent><expr> <c-@> coc#refresh()
 endif
+
+" Center the screen after cursor moved
+function! s:CenterAfterJump()
+  augroup CenterAfterJump
+    autocmd!
+    autocmd CursorMoved * ++once normal! zz
+  augroup END
+endfunction
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
@@ -330,38 +346,38 @@ nnoremap <Leader>sr :History<CR>
 nnoremap <Leader>sc :Commands<CR>
 
 
-" Colorscheme
+" Colorschemes
 colorscheme catppuccin_mocha
 
 " Make main editing area, inactive windows, sign column, splits, line numbers, folds, and non-text fully transparent
-highlight Normal       guibg=NONE ctermbg=NONE
-highlight NormalNC     guibg=NONE ctermbg=NONE
-highlight SignColumn   guibg=NONE ctermbg=NONE
-highlight VertSplit    guibg=NONE ctermbg=NONE
-highlight LineNr       guibg=NONE ctermbg=NONE
-highlight Folded       guibg=NONE ctermbg=NONE
-highlight NonText      guibg=NONE ctermbg=NONE
+" highlight Normal       guibg=NONE ctermbg=NONE
+" highlight NormalNC     guibg=NONE ctermbg=NONE
+" highlight SignColumn   guibg=NONE ctermbg=NONE
+" highlight VertSplit    guibg=NONE ctermbg=NONE
+" highlight LineNr       guibg=NONE ctermbg=NONE
+" highlight Folded       guibg=NONE ctermbg=NONE
+" highlight NonText      guibg=NONE ctermbg=NONE
 
 " Match line number foreground to normal text
-highlight LineNr       guibg=NONE guifg=fg
+" highlight LineNr       guibg=NONE guifg=fg
 
 " Set visual selection background (no bold, no foreground change)
-highlight Visual       cterm=NONE ctermbg=236 ctermfg=NONE
-highlight Visual       gui=NONE  guibg=#4f5368 guifg=NONE
+" highlight Visual       cterm=NONE ctermbg=236 ctermfg=NONE
+" highlight Visual       gui=NONE  guibg=#4f5368 guifg=NONE
 
 " Popup menu (completion list)
-highlight Pmenu        guibg=#1e1e2e guifg=#cdd6f4
-highlight PmenuSel     guibg=#585b70 guifg=#f5e0dc
-highlight PmenuThumb   guibg=#45475a
-highlight PmenuSbar    guibg=#313244
+" highlight Pmenu        guibg=#1e1e2e guifg=#cdd6f4
+" highlight PmenuSel     guibg=#585b70 guifg=#f5e0dc
+" highlight PmenuThumb   guibg=#45475a
+" highlight PmenuSbar    guibg=#313244
 
 " Coc.nvim floating window and menu selection
-highlight CocFloating  guibg=#1e1e2e guifg=#cdd6f4
-highlight CocMenuSel   guibg=#585b70 guifg=#f5e0dc
+" highlight CocFloating  guibg=#1e1e2e guifg=#cdd6f4
+" highlight CocMenuSel   guibg=#585b70 guifg=#f5e0dc
 
 " Coc.nvim specific popup menu elements
-highlight PmenuKind    guifg=#89b4fa
-highlight PmenuExtra   guifg=#f2cdcd
+" highlight PmenuKind    guifg=#89b4fa
+" highlight PmenuExtra   guifg=#f2cdcd
 
 :set fillchars+=vert:\ 
 
@@ -375,8 +391,7 @@ function! s:GetRegisterList()
   let upper   = join(map(range(char2nr('A'), char2nr('Z')), {_, v -> nr2char(v)}), '')
   " Generate digits 0-9 as string
   let digits  = join(map(range(0, 9), {_, v -> string(v)}), '')
-  " Special registers commonly used
-  let special = '"*-+'
+  " Special registers commonly used let special = '"*-+'
 
   " Combine all into a list of single-character register names
   return split(lower . upper . digits . special, '\zs')
@@ -429,3 +444,216 @@ endfunction
 
 set showtabline=1
 set tabline=%!MyTabLine()
+
+
+ 
+ 
+ 
+" Statusline
+
+" Colors
+let g:StslineColorGreen  = "#A6E3A1"
+let g:StslineColorBlue   = "#89B4FA"
+let g:StslineColorViolet = "#CBA6F7"
+let g:StslineColorYellow = "#F9E2AF"
+let g:StslineColorOrange = "#FAB387"
+
+let g:StslineColorLight  = "#CDD6F4"
+let g:StslineColorDark   = "#11111B"
+let g:StslineColorDark1  = "#181825"
+let g:StslineColorDark2  = "#1E1E2E"
+let g:StslineColorDark3  = "#313244"
+
+let g:StslineBackColor   = g:StslineColorDark2
+let g:StslineOnBackColor = g:StslineColorLight
+let g:StslineOnPriColor  = g:StslineColorDark
+let g:StslineSecColor    = g:StslineColorDark3
+let g:StslineOnSecColor  = g:StslineColorLight
+
+execute 'highlight StslineSecColorFG guifg=' . g:StslineSecColor   ' guibg=' . g:StslineBackColor
+execute 'highlight StslineSecColorBG guifg=' . g:StslineColorLight ' guibg=' . g:StslineSecColor
+execute 'highlight StslineBackColorBG guifg=' . g:StslineColorLight ' guibg=' . g:StslineBackColor
+execute 'highlight StslineBackColorFGSecColorBG guifg=' . g:StslineBackColor ' guibg=' . g:StslineSecColor
+execute 'highlight StslineSecColorFGBackColorBG guifg=' . g:StslineSecColor ' guibg=' . g:StslineBackColor
+execute 'highlight StslineModColorFG guifg=' . g:StslineColorYellow ' guibg=' . g:StslineBackColor
+ 
+" Enable statusline
+set laststatus=2
+ 
+" Disable showmode - i.e. Don't show mode like --INSERT-- in current statusline.
+set noshowmode
+ 
+" Define active statusline
+function! ActivateStatusline()
+call GetFileType()
+setlocal statusline=%#StslinePriColorBG#\ %{StslineMode()}%#StslineSecColorBG#%{get(b:,'coc_git_status',b:GitBranch)}%{get(b:,'coc_git_blame','')}%#StslineBackColorFGPriColorBG#%#StslinePriColorFG#\ %{&readonly?\"\ \":\"\"}%F\ %#StslineModColorFG#%{&modified?\"\ \":\"\"}%=%#StslinePriColorFG#\ %{b:FiletypeIcon}%{&filetype}\ %#StslineSecColorFG#%#StslineSecColorBG#%{&fenc!='utf-8'?\"\ \":''}%{&fenc!='utf-8'?&fenc:''}%{&fenc!='utf-8'?\"\ \":''}%#StslinePriColorFGSecColorBG#%#StslinePriColorBG#\ %p\%%\ %#StslinePriColorBGBold#%l%#StslinePriColorBG#/%L\ :%c\ 
+endfunction
+ 
+" Define Inactive statusline
+ function! DeactivateStatusline()
+ 
+if !exists("b:GitBranch") || b:GitBranch == ''
+setlocal statusline=%#StslineSecColorBG#\ INACTIVE\ %#StslineSecColorBG#%{get(b:,'coc_git_statusline',b:GitBranch)}%{get(b:,'coc_git_blame','')}%#StslineBackColorFGSecColorBG#%#StslineBackColorBG#\ %{&readonly?\"\ \":\"\"}%F\ %#StslineModColorFG#%{&modified?\"\ \":\"\"}%=%#StslineBackColorBG#\ %{b:FiletypeIcon}%{&filetype}\ %#StslineSecColorFGBackColorBG#%#StslineSecColorBG#\ %p\%%\ %l/%L\ :%c\ 
+ 
+else
+setlocal statusline=%#StslineSecColorBG#%{get(b:,'coc_git_statusline',b:GitBranch)}%{get(b:,'coc_git_blame','')}%#StslineBackColorFGSecColorBG#%#StslineBackColorBG#\ %{&readonly?\"\ \":\"\"}%F\ %#StslineModColorFG#%{&modified?\"\ \":\"\"}%=%#StslineBackColorBG#\ %{b:FiletypeIcon}%{&filetype}\ %#StslineSecColorFGBackColorBG#%#StslineSecColorBG#\ %p\%%\ %l/%L\ :%c\ 
+endif
+ 
+endfunction
+ 
+" Get Statusline mode & also set primary color for that mode
+function! StslineMode()
+ 
+    let l:CurrentMode=mode()
+ 
+    if l:CurrentMode==#"n"
+        let g:StslinePriColor     = g:StslineColorGreen
+        let b:CurrentMode = "NORMAL "
+ 
+    elseif l:CurrentMode==#"i"
+        let g:StslinePriColor     = g:StslineColorViolet
+        let b:CurrentMode = "INSERT "
+ 
+    elseif l:CurrentMode==#"c"
+        let g:StslinePriColor     = g:StslineColorYellow
+ 
+        let b:CurrentMode = "COMMAND "
+ 
+    elseif l:CurrentMode==#"v"
+        let g:StslinePriColor     = g:StslineColorBlue
+        let b:CurrentMode = "VISUAL "
+ 
+    elseif l:CurrentMode==#"V"
+        let g:StslinePriColor     = g:StslineColorBlue
+        let b:CurrentMode = "V-LINE "
+ 
+    elseif l:CurrentMode==#"\<C-v>"
+        let g:StslinePriColor     = g:StslineColorBlue
+        let b:CurrentMode = "V-BLOCK "
+ 
+    elseif l:CurrentMode==#"R"
+        let g:StslinePriColor     = g:StslineColorViolet
+        let b:CurrentMode = "REPLACE "
+ 
+    elseif l:CurrentMode==#"s"
+        let g:StslinePriColor     = g:StslineColorBlue
+        let b:CurrentMode = "SELECT "
+ 
+    elseif l:CurrentMode==#"t"
+        let g:StslinePriColor     =g:StslineColorYellow
+        let b:CurrentMode = "TERM "
+ 
+    elseif l:CurrentMode==#"!"
+        let g:StslinePriColor     = g:StslineColorYellow
+        let b:CurrentMode = "SHELL "
+ 
+    endif
+ 
+ 
+    call UpdateStslineColors()
+    
+    return b:CurrentMode
+ 
+endfunction
+ 
+" Update colors. Recreate highlight groups with new Primary color value.
+function! UpdateStslineColors()
+ 
+execute 'highlight StslinePriColorBG           guifg=' . g:StslineOnPriColor ' guibg=' . g:StslinePriColor
+execute 'highlight StslinePriColorBGBold       guifg=' . g:StslineOnPriColor ' guibg=' . g:StslinePriColor ' gui=bold'
+execute 'highlight StslinePriColorFG           guifg=' . g:StslinePriColor   ' guibg=' . g:StslineBackColor
+execute 'highlight StslinePriColorFGSecColorBG guifg=' . g:StslinePriColor   ' guibg=' . g:StslineSecColor
+execute 'highlight StslineSecColorFGPriColorBG guifg=' . g:StslineSecColor   ' guibg=' . g:StslinePriColor
+ 
+if !exists("b:GitBranch") || b:GitBranch == ''
+execute 'highlight StslineBackColorFGPriColorBG guifg=' . g:StslineBackColor ' guibg=' . g:StslinePriColor
+endif
+ 
+endfunction
+ 
+" Get git branch name
+function! GetGitBranch()
+let b:GitBranch=""
+try
+    let l:dir=expand('%:p:h')
+    let l:gitrevparse = system("git -C ".l:dir." rev-parse --abbrev-ref HEAD")
+    if !v:shell_error
+        let b:GitBranch="   ".substitute(l:gitrevparse, '\n', '', 'g')." "
+        execute 'highlight StslineBackColorFGPriColorBG guifg=' . g:StslineBackColor ' guibg=' . g:StslineSecColor
+    endif
+catch
+endtry
+endfunction
+ 
+" Get filetype & custom icon. Put your most used file types first for optimized performance.
+function! GetFileType()
+ 
+if &filetype == 'typescript'
+let b:FiletypeIcon = ' '
+ 
+elseif &filetype == 'html'
+let b:FiletypeIcon = ' '
+ 
+elseif &filetype == 'scss'
+let b:FiletypeIcon = ' '
+ 
+elseif &filetype == 'css'
+let b:FiletypeIcon = ' '
+ 
+elseif &filetype == 'javascript'
+let b:FiletypeIcon = ' '
+ 
+elseif &filetype == 'javascriptreact'
+let b:FiletypeIcon = ' '
+ 
+elseif &filetype == 'markdown'
+let b:FiletypeIcon = ' '
+ 
+elseif &filetype == 'sh' || &filetype == 'zsh'
+let b:FiletypeIcon = ' '
+ 
+elseif &filetype == 'vim'
+let b:FiletypeIcon = ' '
+ 
+elseif &filetype == ''
+let b:FiletypeIcon = ''
+ 
+elseif &filetype == 'rust'
+let b:FiletypeIcon = ' '
+ 
+elseif &filetype == 'ruby'
+let b:FiletypeIcon = ' '
+ 
+elseif &filetype == 'cpp'
+let b:FiletypeIcon = ' '
+ 
+elseif &filetype == 'c'
+let b:FiletypeIcon = ' '
+ 
+elseif &filetype == 'go'
+let b:FiletypeIcon = ' '
+ 
+elseif &filetype == 'lua'
+let b:FiletypeIcon = ' '
+ 
+elseif &filetype == 'haskel'
+let b:FiletypeIcon = ' '
+ 
+else
+let b:FiletypeIcon = ' '
+ 
+endif
+endfunction
+ 
+" Get git branch name after entering a buffer
+augroup GetGitBranch
+    autocmd!
+    autocmd BufEnter * call GetGitBranch()
+augroup END
+ 
+" Set active / inactive statusline after entering, leaving buffer
+augroup SetStslineline
+    autocmd!
+    autocmd BufEnter,WinEnter * call ActivateStatusline()
+    autocmd BufLeave,WinLeave * call DeactivateStatusline()
+augroup END
