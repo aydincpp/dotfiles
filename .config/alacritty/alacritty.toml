@@ -12,16 +12,21 @@ TERM = "xterm-256color"
 
 [window]
 
-opacity = 0.8
+opacity = 1
 
-padding.x = 10
-padding.y = 10
+padding.x = 0
+padding.y = 0
 
 [font]
 
 # normal = { family = "JetBrainsMono Nerd Font Mono", style = "Regular" }
-# normal = { family = "BlexMono Nerd Font Mono", style = "Regular" }
-normal = { family = "FiraCode Nerd Font Mono", style = "Regular" }
+# normal = { family = "FiraCode Nerd Font Mono"}
+# normal = { family = "0xProto Nerd Font", style = "Regular" }
+# normal = { family = "Adwaita Mono", style = "Regular" }
+# normal = { family = "CaskaydiaCove Nerd Font Mono", style = "Regular" }
+# normal = { family = "ComicShannsMono Nerd Font Mono", style = "Regular" }
+# normal = { family = "VictorMono Nerd Font Mono", style = "Regular" }
+# normal = { family = "Hack Nerd Font Mono", style = "Regular" }
 
 size = 14
 
@@ -30,4 +35,5 @@ size = 14
 save_to_clipboard = true
 
 [mouse]
+
 hide_when_typing = true
