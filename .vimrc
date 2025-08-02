@@ -135,52 +135,117 @@ nnoremap <silent> <leader>nl :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<C
 nnoremap n nzz
 nnoremap N Nzz
 
-" Exit insert mode by pressing 'kj' inoremap kj <Esc>
+" Exit insert mode by pressing 'kj'
 inoremap kj <Esc>
 
 " Exit visual mode by pressing 'TAB'
 vnoremap <Tab> <Esc>
 
-" Fast saving
-nnoremap <leader>w :w<CR>
 
-" Fast quitting
-nnoremap <leader>q :q<CR>
-nnoremap <leader>Q :q!<CR>
 
-" Better buffer switching
+" Buffer navigation and management
+
+" Go to the next buffer
 nnoremap <leader>bn :bnext<CR>
+
+" Go to the previous buffer
 nnoremap <leader>bp :bprevious<CR>
 
-" Open .vimrc for quick editing and reloading
-nnoremap <leader>ev :e $MYVIMRC<CR>
+" Save the current buffer
+nnoremap <leader>bw :w<CR>
 
-" Horizontal split
+" Save all open buffers
+nnoremap <leader>bW :wall<CR>
+
+" Delete the current buffer
+nnoremap <leader>bd :bdelete<CR>
+
+" Force delete the current buffer without saving
+nnoremap <leader>bD :bdelete!<CR>
+
+" Close all buffers except the current one
+function! CloseOtherBuffers()
+let curr = bufnr('%')
+let to_delete = []
+
+" Collect buffers to delete
+for b in range(1, bufnr('$'))
+if buflisted(b) && b != curr
+  call add(to_delete, b)
+endif
+endfor
+
+" If there are buffers to delete, ask for confirmation
+if !empty(to_delete)
+let confirm_msg = 'Delete ' . len(to_delete) . ' buffer(s)?'
+if confirm(confirm_msg, "&Yes\n&No", 2) != 1
+  return
+endif
+
+" Delete the buffers one by one with confirmation
+for b in to_delete
+  execute 'confirm bdelete ' . b
+endfor
+endif
+endfunction
+
+nnoremap <leader>bo :call CloseOtherBuffers()<CR>
+
+
+
+" Window navigation and management
+
+" close the current window
+nnoremap <leader>wc :close<CR>
+
+" Force close the current window (discard changes)
+nnoremap <leader>wC :close!<CR>
+
+" Create a horizontal split
 nnoremap <Leader>sh :split<CR>
 
-" Vertical split
+" Create a vertical split
 nnoremap <Leader>sv :vsplit<CR>
 
-" Better navigation between splits
+" Navigate between splits using Ctrl + {h,j,k,l}
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" Go to next tab
+" Force quit the current window without saving
+nnoremap <leader>Q :q!<CR>
+
+
+
+" Open .vimrc for editing
+nnoremap <leader>ev :e $MYVIMRC<CR>
+
+
+
+" Tab navigation and management
+
+" Go to the next tab
 nnoremap <leader>tn :tabnext<CR>
 
-" Go to previous tab
+" Go to the previous tab
 nnoremap <leader>tp :tabprevious<CR>
 
-" Go to first tab
+" Go to the first tab
 nnoremap <leader>tf :tabfirst<CR>
 
-" Go to last tab
+" Go to the last tab
 nnoremap <leader>tl :tablast<CR>
+
+" Close the current tab
+nnoremap <leader>tc :tabclose<CR>
+
+" Close the current tab
+nnoremap <leader>tC :tabclose!<CR>
 
 call plug#begin('~/.vim/plugged')
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'rakr/vim-one'
 Plug 'ghifarit53/tokyonight-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -312,7 +377,16 @@ nnoremap <silent> <leader>cr :CocRestart<CR>
 " Initialize configuration dictionary
 let g:fzf_vim = {}
 
-let g:fzf_layout = {'window': { 'width': 0.7, 'height': 0.6, 'yoffset': 0.5, 'xoffset': 0.5, 'relative': v:false, 'border': 'sharp' } }
+let g:fzf_layout = {
+      \ 'window': {
+      \   'width': 0.7,
+      \   'height': 0.6,
+      \   'yoffset': 0.2,
+      \   'xoffset': 0.15,
+      \   'relative': v:true,
+      \   'border': 'sharp'
+      \ }
+      \}
 let g:fzf_vim.preview_window = ['right:50%:border-sharp', 'ctrl-/']
 
 let g:fzf_vim.tags_command = 'ctags -R --languages=C++ --fields=+l --extras=+q'
@@ -344,10 +418,9 @@ nnoremap <Leader>sr :History<CR>
 " Fuzzy find commands
 nnoremap <Leader>sc :Commands<CR>
 
-" Colorschemes
 colorscheme catppuccin_mocha
 
-let g:transparent_enabled = 0
+let g:transparent_enabled = 1
 
 " Function to toggle transparency
 function! ToggleTransparency()
@@ -357,6 +430,7 @@ function! ToggleTransparency()
   else
     " Make main editing area, inactive windows, sign column, splits, line numbers, folds, and non-text fully transparent
     highlight Normal       guibg=NONE ctermbg=NONE
+    highlight Visual       gui=NONE   guibg=#4f5368 guifg=NONE
     highlight NormalNC     guibg=NONE ctermbg=NONE
     highlight SignColumn   guibg=NONE ctermbg=NONE
     highlight VertSplit    guibg=NONE ctermbg=NONE
@@ -391,6 +465,8 @@ endfunction
 
 " Define a user command :ToggleTransparency that calls ToggleTransparency()
 command! ToggleTransparency call ToggleTransparency()
+
+autocmd VimEnter * call ToggleTransparency()
 
 " Add a space character as the vertical separator (column between splits)
 " This overrides the default '|' split bar with a blank space
