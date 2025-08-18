@@ -4,12 +4,21 @@ set nocompatible
 " Set leader key to space
 let mapleader = " "
 
+" Map ZWNJ to space in insert mode
+inoremap <Char-0x200C> <Space>
+
 " Performance tweaks
 set lazyredraw      " Improve scrolling performance
 set updatetime=300  " Faster UI updates
 
+" By default timeoutlen is 1000 ms
+set timeoutlen=150
+
 " Use the system clipboard for all yank, delete, paste operations automatically
 set clipboard=unnamed,unnamedplus
+
+" Remove ~ symbols on empty lines globally
+set fillchars+=eob:\ 
 
 " Show partial commands in the bottom right (e.g., after typing ':')
 set showcmd
@@ -251,6 +260,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 " Plug 'kshenoy/vim-signature'
 " Plug 'tpope/vim-surround'
 call plug#end()
@@ -381,8 +391,6 @@ let g:fzf_layout = {
       \ 'window': {
       \   'width': 0.7,
       \   'height': 0.6,
-      \   'yoffset': 0.2,
-      \   'xoffset': 0.15,
       \   'relative': v:true,
       \   'border': 'sharp'
       \ }
@@ -729,9 +737,12 @@ let b:FiletypeIcon = ' '
  
 elseif &filetype == 'haskel'
 let b:FiletypeIcon = ' '
+
+elseif &filetype == 'coc-explorer'
+let b:FiletypeIcon = ' '
  
 else
-let b:FiletypeIcon = ' '
+let b:FiletypeIcon = ' '
  
 endif
 endfunction
@@ -748,3 +759,96 @@ augroup SetStslineline
     autocmd BufEnter,WinEnter * call ActivateStatusline()
     autocmd BufLeave,WinLeave * call DeactivateStatusline()
 augroup END
+
+" coc-explorer configs
+
+" Use <Leader>e to toggle explorer
+:nmap <space>fe <Cmd>CocCommand explorer<CR>
+
+let g:coc_explorer_global_presets = {
+\   '.vim': {
+\     'root-uri': '~/.vim',
+\   },
+\   'cocConfig': {
+\      'root-uri': '~/.config/coc',
+\   },
+\   'tab': {
+\     'position': 'tab',
+\     'quit-on-open': v:true,
+\   },
+\   'tab:$': {
+\     'position': 'tab:$',
+\     'quit-on-open': v:true,
+\   },
+\   'floating': {
+\     'position': 'floating',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingTop': {
+\     'position': 'floating',
+\     'floating-position': 'center-top',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingLeftside': {
+\     'position': 'floating',
+\     'floating-position': 'left-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingRightside': {
+\     'position': 'floating',
+\     'floating-position': 'right-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'simplify': {
+\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\   },
+\   'buffer': {
+\     'sources': [{'name': 'buffer', 'expand': v:true}]
+\   },
+\ }
+
+" Use preset argument to open it
+nmap <space>ed <Cmd>CocCommand explorer --preset .vim<CR>
+nmap <space>ec <Cmd>CocCommand explorer --preset cocConfig<CR>
+nmap <space>eb <Cmd>CocCommand explorer --preset buffer<CR>
+
+function! s:explorer_cur_dir()
+  let node_info = CocAction('runCommand', 'explorer.getNodeInfo', 0)
+  return fnamemodify(node_info['fullpath'], ':h')
+endfunction
+
+function! s:exec_cur_dir(cmd)
+  let dir = s:explorer_cur_dir()
+  execute 'cd ' . dir
+  execute a:cmd
+endfunction
+
+function! s:init_explorer()
+  " Integration with other plugins
+
+  " CocList
+  nmap <buffer> <Leader>fg <Cmd>call <SID>exec_cur_dir('CocList -I grep')<CR>
+  nmap <buffer> <Leader>fG <Cmd>call <SID>exec_cur_dir('CocList -I grep -regex')<CR>
+  nmap <buffer> <C-p> <Cmd>call <SID>exec_cur_dir('CocList files')<CR>
+
+  " vim-floaterm
+  nmap <buffer> <Leader>ft <Cmd>call <SID>exec_cur_dir('FloatermNew --wintype=floating')<CR>
+endfunction
+
+function! s:enter_explorer()
+  if &filetype == 'coc-explorer'
+    " statusline
+    setl statusline=coc-explorer
+  endif
+endfunction
+
+augroup CocExplorerCustom
+  autocmd!
+  autocmd BufEnter * call <SID>enter_explorer()
+  autocmd FileType coc-explorer call <SID>init_explorer()
+augroup END
+
+" Which key configs
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
