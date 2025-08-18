@@ -12,7 +12,7 @@ set lazyredraw      " Improve scrolling performance
 set updatetime=300  " Faster UI updates
 
 " By default timeoutlen is 1000 ms
-set timeoutlen=150
+set timeoutlen=500
 
 " Use the system clipboard for all yank, delete, paste operations automatically
 set clipboard=unnamed,unnamedplus
@@ -51,7 +51,8 @@ set relativenumber
 set nocursorline
 
 " Enable filetype detection and plugins for better language support
-filetype plugin off
+filetype plugin on
+filetype plugin indent on
 
 " syntax highlighting
 syntax on
@@ -200,8 +201,6 @@ endfunction
 
 nnoremap <leader>bo :call CloseOtherBuffers()<CR>
 
-
-
 " Window navigation and management
 
 " close the current window
@@ -225,12 +224,8 @@ nnoremap <C-l> <C-w>l
 " Force quit the current window without saving
 nnoremap <leader>Q :q!<CR>
 
-
-
 " Open .vimrc for editing
 nnoremap <leader>ev :e $MYVIMRC<CR>
-
-
 
 " Tab navigation and management
 
