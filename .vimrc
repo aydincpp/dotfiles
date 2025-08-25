@@ -789,8 +789,8 @@ augroup END
 
 " coc-explorer configs
 
-" Use <Leader>e to toggle explorer
-:nmap <space>fe <Cmd>CocCommand explorer<CR>
+" toggle explorer
+nnoremap <space>fe <Cmd>CocCommand explorer<CR>
 
 let g:coc_explorer_global_presets = {
 \   '.vim': {
