@@ -1,5 +1,18 @@
+" This is my personal Vim configuration.
+" Mostly made for my own use and learning.
+" The statusline was originally created by Reddit user SamLovesNotion,
+" with some of my own modifications and tweaks.
+
 " Disable Vi compatibility mode to enable full Vim features
 set nocompatible
+
+" Normally, if you try to switch away from a buffer that has unsaved changes,
+" Vim forces you to either save it or close it.
+" With set hidden enabled:
+" You can switch to another buffer or window without saving the current buffer.
+" The modified buffer remains “hidden” in memory.
+" You can return to it later and continue editing.
+set hidden
 
 " Set leader key to space
 let mapleader = " "
@@ -145,13 +158,17 @@ nnoremap <silent> <leader>nl :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<C
 nnoremap n nzz
 nnoremap N Nzz
 
+" Center the screen after jump to the next method/function 
+nnoremap [m [mzz
+nnoremap ]m ]mzz
+nnoremap [[ [[zz
+nnoremap ]] ]]zz
+
 " Exit insert mode by pressing 'kj'
 inoremap kj <Esc>
 
 " Exit visual mode by pressing 'TAB'
 vnoremap <Tab> <Esc>
-
-
 
 " Buffer navigation and management
 
@@ -224,6 +241,9 @@ nnoremap <C-l> <C-w>l
 " Force quit the current window without saving
 nnoremap <leader>Q :q!<CR>
 
+" Save all buffers and close vim
+nnoremap <leader>qq :wqa<CR>
+
 " Open .vimrc for editing
 nnoremap <leader>ev :e $MYVIMRC<CR>
 
@@ -247,7 +267,11 @@ nnoremap <leader>tc :tabclose<CR>
 " Close the current tab
 nnoremap <leader>tC :tabclose!<CR>
 
+" Close all tabs except the current one
+nnoremap <leader>to :tabonly<CR>
+
 call plug#begin('~/.vim/plugged')
+Plug 'mhinz/vim-startify'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'rakr/vim-one'
 Plug 'ghifarit53/tokyonight-vim'
@@ -256,13 +280,9 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-" Plug 'kshenoy/vim-signature'
+Plug 'junegunn/goyo.vim'
 " Plug 'tpope/vim-surround'
 call plug#end()
-
-" Vim signature configuration
-" nnoremap <leader>m] ]`zz
-" nnoremap <leader>m[ [`zz
 
 " coc.nvim configuration
 "
@@ -384,8 +404,8 @@ let g:fzf_vim = {}
 
 let g:fzf_layout = {
       \ 'window': {
-      \   'width': 0.7,
-      \   'height': 0.6,
+      \   'width': 0.8,
+      \   'height': 0.8,
       \   'relative': v:true,
       \   'border': 'sharp'
       \ }
@@ -423,7 +443,7 @@ nnoremap <Leader>sc :Commands<CR>
 
 colorscheme catppuccin_mocha
 
-let g:transparent_enabled = 1
+let g:transparent_enabled = 0
 
 " Function to toggle transparency
 function! ToggleTransparency()
@@ -542,7 +562,6 @@ set showtabline=1
 set tabline=%!MyTabLine()
 
 
- 
 " Statusline
 
 " Colors
@@ -580,17 +599,17 @@ set noshowmode
 " Define active statusline
 function! ActivateStatusline()
 call GetFileType()
-setlocal statusline=%#StslinePriColorBG#\ %{StslineMode()}%#StslineSecColorBG#%{get(b:,'coc_git_status',b:GitBranch)}%{get(b:,'coc_git_blame','')}%#StslineBackColorFGPriColorBG#%#StslinePriColorFG#\ %{&readonly?\"\ \":\"\"}%F\ %#StslineModColorFG#%{&modified?\"\ \":\"\"}%=%#StslinePriColorFG#\ %{b:FiletypeIcon}%{&filetype}\ %#StslineSecColorFG#%#StslineSecColorBG#%{&fenc!='utf-8'?\"\ \":''}%{&fenc!='utf-8'?&fenc:''}%{&fenc!='utf-8'?\"\ \":''}%#StslinePriColorFGSecColorBG#%#StslinePriColorBG#\ %p\%%\ %#StslinePriColorBGBold#%l%#StslinePriColorBG#/%L\ :%c\ 
+setlocal statusline=%#StslinePriColorBG#\ %{StslineMode()}%#StslineSecColorBG#%{get(b:,'coc_git_status',get(b:,'GitBranch',''))}%{get(b:,'coc_git_blame','')}%#StslineBackColorFGPriColorBG#%#StslinePriColorFG#\ %{&readonly?\"\ \":\"\"}%F\ %#StslineModColorFG#%{&modified?\"\ \":\"\"}%=%#StslinePriColorFG#\ %{b:FiletypeIcon}%{&filetype}\ %#StslineSecColorFG#%#StslineSecColorBG#%{&fenc!='utf-8'?\"\ \":''}%{&fenc!='utf-8'?&fenc:''}%{&fenc!='utf-8'?\"\ \":''}%#StslinePriColorFGSecColorBG#%#StslinePriColorBG#\ %p\%%\ %#StslinePriColorBGBold#%l%#StslinePriColorBG#/%L\ :%c\ 
 endfunction
  
 " Define Inactive statusline
  function! DeactivateStatusline()
  
 if !exists("b:GitBranch") || b:GitBranch == ''
-setlocal statusline=%#StslineSecColorBG#\ INACTIVE\ %#StslineSecColorBG#%{get(b:,'coc_git_statusline',b:GitBranch)}%{get(b:,'coc_git_blame','')}%#StslineBackColorFGSecColorBG#%#StslineBackColorBG#\ %{&readonly?\"\ \":\"\"}%F\ %#StslineModColorFG#%{&modified?\"\ \":\"\"}%=%#StslineBackColorBG#\ %{b:FiletypeIcon}%{&filetype}\ %#StslineSecColorFGBackColorBG#%#StslineSecColorBG#\ %p\%%\ %l/%L\ :%c\ 
+setlocal statusline=%#StslineSecColorBG#\ INACTIVE\ %#StslineSecColorBG#%{get(b:,'coc_git_statusline',get(b:,'GitBranch',''))}%{get(b:,'coc_git_blame','')}%#StslineBackColorFGSecColorBG#%#StslineBackColorBG#\ %{&readonly?\"\ \":\"\"}%F\ %#StslineModColorFG#%{&modified?\"\ \":\"\"}%=%#StslineBackColorBG#\ %{b:FiletypeIcon}%{&filetype}\ %#StslineSecColorFGBackColorBG#%#StslineSecColorBG#\ %p\%%\ %l/%L\ :%c\ 
  
 else
-setlocal statusline=%#StslineSecColorBG#%{get(b:,'coc_git_statusline',b:GitBranch)}%{get(b:,'coc_git_blame','')}%#StslineBackColorFGSecColorBG#%#StslineBackColorBG#\ %{&readonly?\"\ \":\"\"}%F\ %#StslineModColorFG#%{&modified?\"\ \":\"\"}%=%#StslineBackColorBG#\ %{b:FiletypeIcon}%{&filetype}\ %#StslineSecColorFGBackColorBG#%#StslineSecColorBG#\ %p\%%\ %l/%L\ :%c\ 
+setlocal statusline=%#StslineSecColorBG#%{get(b:,'coc_git_statusline',get(b:,'GitBranch',''))}%{get(b:,'coc_git_blame','')}%#StslineBackColorFGSecColorBG#%#StslineBackColorBG#\ %{&readonly?\"\ \":\"\"}%F\ %#StslineModColorFG#%{&modified?\"\ \":\"\"}%=%#StslineBackColorBG#\ %{b:FiletypeIcon}%{&filetype}\ %#StslineSecColorFGBackColorBG#%#StslineSecColorBG#\ %p\%%\ %l/%L\ :%c\ 
 endif
  
 endfunction
@@ -643,11 +662,8 @@ function! StslineMode()
  
     endif
  
- 
     call UpdateStslineColors()
-    
     return b:CurrentMode
- 
 endfunction
  
 " Update colors. Recreate highlight groups with new Primary color value.
@@ -709,9 +725,6 @@ let b:FiletypeIcon = ' '
 elseif &filetype == 'vim'
 let b:FiletypeIcon = ' '
  
-elseif &filetype == ''
-let b:FiletypeIcon = ''
- 
 elseif &filetype == 'rust'
 let b:FiletypeIcon = ' '
  
@@ -735,12 +748,31 @@ let b:FiletypeIcon = ' '
 
 elseif &filetype == 'coc-explorer'
 let b:FiletypeIcon = ' '
+
+elseif &filetype == 'startify'
+    let b:FiletypeIcon = ' '
+
+elseif &filetype == ''
+    let b:FiletypeIcon = ''
  
 else
-let b:FiletypeIcon = ' '
- 
+    let b:FiletypeIcon = ' '
 endif
 endfunction
+
+" Define Filetype autocmds
+augroup FiletypeIcon
+  autocmd!
+  autocmd FileType * call GetFileType()
+augroup END
+
+" Call GetFileType() for all existing buffers at startup
+for buf in range(1, bufnr('$'))
+  if bufexists(buf)
+    execute 'buffer' buf
+    call GetFileType()
+  endif
+endfor
  
 " Get git branch name after entering a buffer
 augroup GetGitBranch
@@ -820,30 +852,45 @@ function! s:exec_cur_dir(cmd)
   execute a:cmd
 endfunction
 
-function! s:init_explorer()
-  " Integration with other plugins
-
-  " CocList
-  nmap <buffer> <Leader>fg <Cmd>call <SID>exec_cur_dir('CocList -I grep')<CR>
-  nmap <buffer> <Leader>fG <Cmd>call <SID>exec_cur_dir('CocList -I grep -regex')<CR>
-  nmap <buffer> <C-p> <Cmd>call <SID>exec_cur_dir('CocList files')<CR>
-
-  " vim-floaterm
-  nmap <buffer> <Leader>ft <Cmd>call <SID>exec_cur_dir('FloatermNew --wintype=floating')<CR>
-endfunction
-
-function! s:enter_explorer()
-  if &filetype == 'coc-explorer'
-    " statusline
-    setl statusline=coc-explorer
-  endif
-endfunction
-
-augroup CocExplorerCustom
-  autocmd!
-  autocmd BufEnter * call <SID>enter_explorer()
-  autocmd FileType coc-explorer call <SID>init_explorer()
-augroup END
-
 " Which key configs
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+
+" Keep Startify open when the last normal window closes 
+augroup StartifyLastNormal
+  autocmd!
+  " Trigger after any buffer is deleted or window changes
+  autocmd BufWinLeave * call s:CheckLastNormalWindowDeferred()
+augroup END
+
+function! s:CheckLastNormalWindowDeferred()
+  " Use a timer to defer execution after the buffer is fully closed
+  call timer_start(0, {-> execute('call s:OpenStartifyIfNeeded()')})
+endfunction
+
+function! s:OpenStartifyIfNeeded()
+  " Count how many normal windows exist (excluding coc-explorer/startify)
+  let normal_windows = 0
+  for w in range(1, winnr('$'))
+    let bufn = winbufnr(w)
+    let buft = getbufvar(bufn, '&buftype')
+    let ft   = getbufvar(bufn, '&filetype')
+    if buft == '' && ft !=# 'coc-explorer' && ft !=# 'startify'
+      let normal_windows += 1
+    endif
+  endfor
+
+  " If no normal windows remain but coc-explorer exists
+  if normal_windows == 0
+    for w in range(1, winnr('$'))
+      if getbufvar(winbufnr(w), '&filetype') ==# 'coc-explorer'
+        " Open Startify in a new vertical split
+        execute 'belowright vsplit'
+        Startify
+        " Resize Startify to take 80% of total width
+        let total_width = winwidth(0) + winwidth(winnr('$') - 1)
+        execute 'vertical resize ' . float2nr(total_width * 0.75)
+        break
+      endif
+    endfor
+  endif
+endfunction
