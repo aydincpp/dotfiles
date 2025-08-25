@@ -1,5 +1,5 @@
-" This is my personal Vim configuration.
-" Mostly made for my own use and learning.
+" This is my personal Vim configuration,
+" Mostly made for my own use and learning (C/C++ Development).
 " The statusline was originally created by Reddit user SamLovesNotion,
 " with some of my own modifications and tweaks.
 
