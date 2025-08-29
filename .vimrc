@@ -134,6 +134,9 @@ set softtabstop=4
 " Number of spaces to use for each step of (auto)indent
 set shiftwidth=4
 
+" For C files only
+autocmd FileType c setlocal tabstop=2 softtabstop=2 shiftwidth=2
+
 " Use spaces instead of literal tab characters when indenting
 set expandtab
 
@@ -142,9 +145,6 @@ set autoindent
 
 " Enable C-style indentation rules
 set cindent
-
-" Enable smart indentation (better automatic indentation)
-set smartindent
 
 " Briefly jump to matching bracket when inserting a bracket
 set showmatch
@@ -329,7 +329,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
-Plug 'sakshamgupta05/vim-todo-highlight'
+" Plug 'sakshamgupta05/vim-todo-highlight'
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'junegunn/goyo.vim'
 " Plug 'tpope/vim-surround'
@@ -494,7 +494,7 @@ nnoremap <Leader>sc :Commands<CR>
 
 colorscheme catppuccin_mocha
 
-let g:transparent_enabled = 0
+let g:transparent_enabled = 1
 
 " Function to toggle transparency
 function! ToggleTransparency()
@@ -945,3 +945,88 @@ function! s:OpenStartifyIfNeeded()
     endfor
   endif
 endfunction
+
+" TODO highlights config
+"
+" Enable syntax and true colors
+syntax on
+set termguicolors
+
+" Create an autocommand group for our TODO highlights
+augroup TodoHighlight
+  autocmd!
+  autocmd Syntax * call SetupTodoHighlight()
+augroup END
+
+" Function to define TODO/FIXME/NOTE/DEBUG/HACK/REVIEW highlights
+function! SetupTodoHighlight()
+    " Define custom highlight groups for TODO, FIXME, NOTE, DEBUG, HACK, REVIEW, DONE
+    highlight TodoKeywordTODO guifg=#f5e0dc guibg=#303446 gui=bold
+    highlight TodoKeywordFIXME guifg=#f28fad guibg=#303446 gui=bold
+    highlight TodoKeywordNOTE guifg=#f9e2af guibg=#303446 gui=bold
+    highlight TodoKeywordDEBUG guifg=#a6e3a1 guibg=#303446 gui=bold
+    highlight TodoKeywordHACK guifg=#f2cdcd guibg=#303446 gui=bold
+    highlight TodoKeywordREVIEW guifg=#cba6f7 guibg=#303446 gui=bold
+    highlight TodoKeywordDONE guifg=#a6e3a1 guibg=#303446 gui=bold
+
+    " Define a separate highlight group for the signs
+    highlight TodoSignTODO guifg=#f5e0dc gui=bold
+    highlight TodoSignFIXME guifg=#f28fad gui=bold
+    highlight TodoSignNOTE guifg=#f9e2af gui=bold
+    highlight TodoSignDEBUG guifg=#a6e3a1 gui=bold
+    highlight TodoSignHACK guifg=#f2cdcd gui=bold
+    highlight TodoSignREVIEW guifg=#cba6f7 gui=bold
+    highlight TodoSignDONE guifg=#a6e3a1 gui=bold
+
+    " Define signs with Nerd Font icons
+    sign define todoSign text= texthl=TodoSignTODO
+    sign define fixmeSign text= texthl=TodoSignFIXME
+    sign define noteSign text= texthl=TodoSignNOTE
+    sign define debugSign text= texthl=TodoSignDEBUG
+    sign define hackSign text= texthl=TodoSignHACK
+    sign define reviewSign text= texthl=TodoSignREVIEW
+    sign define doneSign text= texthl=TodoSignDONE
+
+    " Syntax keywords
+    syntax keyword TodoKeywordTODO TODO containedin=.*Comment,vimCommentTitle,cCommentL
+    syntax keyword TodoKeywordFIXME FIXME containedin=.*Comment,vimCommentTitle,cCommentL
+    syntax keyword TodoKeywordNOTE NOTE containedin=.*Comment,vimCommentTitle,cCommentL
+    syntax keyword TodoKeywordDEBUG DEBUG containedin=.*Comment,vimCommentTitle,cCommentL
+    syntax keyword TodoKeywordHACK HACK containedin=.*Comment,vimCommentTitle,cCommentL
+    syntax keyword TodoKeywordREVIEW REVIEW containedin=.*Comment,vimCommentTitle,cCommentL
+    syntax keyword TodoKeywordDONE DONE containedin=.*Comment,vimCommentTitle,cCommentL
+endfunction
+
+" Function to place signs dynamically
+function! PlaceTodoSigns()
+    " Clear previous signs
+    execute 'sign unplace * group=todo'
+    " Loop through lines
+    let l:num = 1
+    while l:num <= line('$')
+        let l:line = getline(l:num)
+        if l:line =~ 'TODO'
+            execute 'sign place '.l:num.' line='.l:num.' name=todoSign group=todo buffer='.bufnr('%')
+        elseif l:line =~ 'FIXME'
+            execute 'sign place '.l:num.' line='.l:num.' name=fixmeSign group=todo buffer='.bufnr('%')
+        elseif l:line =~ 'NOTE'
+            execute 'sign place '.l:num.' line='.l:num.' name=noteSign group=todo buffer='.bufnr('%')
+        elseif l:line =~ 'DEBUG'
+            execute 'sign place '.l:num.' line='.l:num.' name=debugSign group=todo buffer='.bufnr('%')
+        elseif l:line =~ 'HACK'
+            execute 'sign place '.l:num.' line='.l:num.' name=hackSign group=todo buffer='.bufnr('%')
+        elseif l:line =~ 'REVIEW'
+            execute 'sign place '.l:num.' line='.l:num.' name=reviewSign group=todo buffer='.bufnr('%')
+        elseif l:line =~ 'DONE'
+            execute 'sign place '.l:num.' line='.l:num.' name=doneSign group=todo buffer='.bufnr('%')
+        endif
+        let l:num += 1
+    endwhile
+endfunction
+
+" Call the function when buffer is read or changed
+" Autocmds for reliable updates
+augroup TodoSigns
+    autocmd!
+    autocmd BufReadPost,BufWritePost,CursorHold,InsertLeave * call PlaceTodoSigns()
+augroup END
