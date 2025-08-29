@@ -47,6 +47,53 @@ set encoding=utf-8
 " diagnostics appear/become resolved
 set signcolumn=yes
 
+" Use syntax-based folding (or indent-based)
+set foldmethod=syntax
+
+" Start with all folds open by default
+set foldlevelstart=99
+
+" Set the view directory
+set viewdir=~/.vim/view
+
+" Save folds automatically when closing a file and restore on open
+augroup remember_folds
+    autocmd!
+    " Only save folds if buffer has a file name
+    autocmd BufWinLeave * if expand('%') != '' | silent! mkview | endif
+    autocmd BufWinEnter * if expand('%') != '' | silent! loadview | endif
+augroup END
+
+function! MyFoldText()
+    " Get the first line of the fold
+    let line = getline(v:foldstart)
+    " Replace tabs with spaces
+    let line = substitute(line, "\t", "    ", "g")
+    " Calculate number of lines in the fold
+    let nlines = v:foldend - v:foldstart + 1
+    " Indent for nested folds
+    let indent = repeat('  ', v:foldlevel - 1)
+    " Prepare fold text with icon and line count
+    let text = indent . '󱃗 ' . line . ' (' . nlines . ' lines 󰉸 )'
+    " Add enough spaces to push Vim's default dashes out of view
+    let extra = repeat(' ', &columns - strwidth(text))
+    return text . extra
+endfunction
+
+set foldtext=MyFoldText()
+
+" Close fold under cursor
+nnoremap <leader>fh zc
+
+" Toggle fold under cursor
+nnoremap <leader>fo za
+
+" Open all folds in buffer
+nnoremap <leader>fO zR
+
+" Close all folds in buffer
+nnoremap <leader>fC zM
+
 " Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
@@ -69,6 +116,9 @@ filetype plugin indent on
 
 " syntax highlighting
 syntax on
+
+" Treat the specified formats as C++ files
+autocmd BufNewFile,BufRead *.h,*.hpp setlocal filetype=cpp
 
 " Terminal GUI colors
 if has("termguicolors")
@@ -279,6 +329,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
+Plug 'sakshamgupta05/vim-todo-highlight'
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'junegunn/goyo.vim'
 " Plug 'tpope/vim-surround'
