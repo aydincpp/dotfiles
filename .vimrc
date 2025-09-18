@@ -22,7 +22,7 @@ inoremap <Char-0x200C> <Space>
 
 " Performance tweaks
 set lazyredraw      " Improve scrolling performance
-set updatetime=300  " Faster UI updates
+set updatetime=300  " faster ui updates
 
 " By default timeoutlen is 1000 ms
 set timeoutlen=500
@@ -43,9 +43,12 @@ set term=screen-256color
 " Use UTF-8 encoding for all file operations and display
 set encoding=utf-8
 
+" Paste over selection without overwriting register
+xnoremap p "_dP
+
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved
-set signcolumn=yes
+set signcolumn=no
 
 " Use syntax-based folding (or indent-based)
 set foldmethod=syntax
@@ -57,7 +60,7 @@ set foldlevelstart=99
 set viewdir=~/.vim/view
 
 " Save folds automatically when closing a file and restore on open
-augroup remember_folds
+augroup RememberFolds
     autocmd!
     " Only save folds if buffer has a file name
     autocmd BufWinLeave * if expand('%') != '' | silent! mkview | endif
@@ -282,14 +285,39 @@ nnoremap <Leader>sh :split<CR>
 " Create a vertical split
 nnoremap <Leader>sv :vsplit<CR>
 
+" Terminal keybindings
+function! OpenTerminalHere()
+  " Open terminal in the current Vim working directory
+  execute 'cd' getcwd()
+  horizontal terminal
+  resize 10
+  startinsert
+endfunction
+
+" Open terminal
+nnoremap <leader>/ :call OpenTerminalHere()<CR>
+
+" Close terminal
+tnoremap <Esc><Esc> <C-d>:close<CR>
+
+" Window resize
+"
+" Horizontal resizing
+nnoremap <C-Right> <C-w>>
+nnoremap <C-Left>  <C-w><
+
+" Vertical resizing
+nnoremap <C-Up>    <C-w>+
+nnoremap <C-Down>  <C-w>-
+
 " Navigate between splits using Ctrl + {h,j,k,l}
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" Force quit the current window without saving
-nnoremap <leader>Q :q!<CR>
+" Force quit all
+nnoremap <leader>Q :qa!<CR>
 
 " Save all buffers and close vim
 nnoremap <leader>qq :wqa<CR>
@@ -329,11 +357,19 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
-" Plug 'sakshamgupta05/vim-todo-highlight'
+Plug 'junegunn/vim-easy-align'
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'junegunn/goyo.vim'
-" Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 call plug#end()
+
+" Easy align configuration
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " coc.nvim configuration
 "
@@ -400,14 +436,11 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Symbol renaming
 nnoremap <leader>rn <Plug>(coc-rename)
 
-" LSP formatting
-nnoremap <silent> <leader>f :call CocAction('format')<CR>
+" Formatting
+" TODO: Function to format cmake files
 
-" Fallback: Manual clang-format (uncomment if needed)
-" nnoremap <silent> <leader>f :silent keepjumps %!clang-format<CR>
-
-" Auto-format on save (with error handling)
-augroup autoformat_cpp
+" Autoformat on save
+augroup AutoFormatOnSave
   autocmd!
   autocmd BufWritePre *.cpp,*.hpp,*.c,*.h,*.json,*.yaml silent! call CocAction('format')
 augroup end
@@ -492,9 +525,22 @@ nnoremap <Leader>sr :History<CR>
 " Fuzzy find commands
 nnoremap <Leader>sc :Commands<CR>
 
+" Set colorscheme
 colorscheme catppuccin_mocha
 
-let g:transparent_enabled = 1
+" Set vertical split character
+set fillchars+=vert:│
+
+" Apply after colorscheme
+augroup MyColors
+  autocmd!
+  autocmd ColorScheme * highlight VertSplit guifg=#313244 guibg=NONE
+  autocmd ColorScheme * highlight StatusLine guibg=NONE guifg=NONE
+  autocmd ColorScheme * highlight StatusLineNC guibg=NONE guifg=NONE
+  autocmd ColorScheme * highlight Visual       gui=NONE      guibg=#4f5368 guifg=NONE cterm=NONE ctermbg=236 ctermfg=NONE
+augroup END
+
+let g:transparent_enabled = 0
 
 " Function to toggle transparency
 function! ToggleTransparency()
@@ -503,21 +549,17 @@ function! ToggleTransparency()
     let g:transparent_enabled = 0
   else
     " Make main editing area, inactive windows, sign column, splits, line numbers, folds, and non-text fully transparent
-    highlight Normal       guibg=NONE ctermbg=NONE
-    highlight Visual       gui=NONE   guibg=#4f5368 guifg=NONE
-    highlight NormalNC     guibg=NONE ctermbg=NONE
-    highlight SignColumn   guibg=NONE ctermbg=NONE
-    highlight VertSplit    guibg=NONE ctermbg=NONE
-    highlight LineNr       guibg=NONE ctermbg=NONE
-    highlight Folded       guibg=NONE ctermbg=NONE
-    highlight NonText      guibg=NONE ctermbg=NONE
+    highlight Normal       guibg=NONE    ctermbg=NONE
+    highlight Visual       gui=NONE      guibg=#4f5368 guifg=NONE cterm=NONE ctermbg=236 ctermfg=NONE
+    highlight NormalNC     guibg=NONE    ctermbg=NONE
+    highlight SignColumn   guibg=NONE    ctermbg=NONE
+    highlight VertSplit    guifg=#313244 ctermbg=NONE
+    highlight LineNr       guibg=NONE    guifg=fg     ctermbg=NONE
+    highlight Folded       guibg=NONE    ctermbg=NONE
+    highlight NonText      guibg=NONE    ctermbg=NONE
 
-    " Match line number foreground to normal text
-    highlight LineNr       guibg=NONE guifg=fg
-
-    " Set visual selection background (no bold, no foreground change)
-    highlight Visual       cterm=NONE ctermbg=236 ctermfg=NONE
-    highlight Visual       gui=NONE  guibg=#4f5368 guifg=NONE
+    highlight StatusLine guibg=NONE guifg=NONE
+    highlight StatusLineNC guibg=NONE guifg=NONE
 
     " Popup menu (completion list)
     highlight Pmenu        guibg=#1e1e2e guifg=#cdd6f4
@@ -540,15 +582,8 @@ endfunction
 " Define a user command :ToggleTransparency that calls ToggleTransparency()
 command! ToggleTransparency call ToggleTransparency()
 
-autocmd VimEnter * call ToggleTransparency()
+" autocmd VimEnter * call ToggleTransparency()
 
-" Add a space character as the vertical separator (column between splits)
-" This overrides the default '|' split bar with a blank space
-:set fillchars+=vert:\ 
-
-" Remove any special styling (like reverse or bold) from vertical splits
-" This makes the split line visually minimal when combined with the blank `fillchars`
-highlight VertSplit cterm=NONE
 
 " Function to generate a list of all relevant Vim register names
 function! s:GetRegisterList()
@@ -634,6 +669,8 @@ let g:StslineOnPriColor  = g:StslineColorDark
 let g:StslineSecColor    = g:StslineColorDark3
 let g:StslineOnSecColor  = g:StslineColorLight
 
+
+" Define highlight groups
 execute 'highlight StslineSecColorFG guifg=' . g:StslineSecColor   ' guibg=' . g:StslineBackColor
 execute 'highlight StslineSecColorBG guifg=' . g:StslineColorLight ' guibg=' . g:StslineSecColor
 execute 'highlight StslineBackColorBG guifg=' . g:StslineColorLight ' guibg=' . g:StslineBackColor
@@ -646,7 +683,7 @@ set laststatus=2
  
 " Disable showmode - i.e. Don't show mode like --INSERT-- in current statusline.
 set noshowmode
- 
+
 " Define active statusline
 function! ActivateStatusline()
 call GetFileType()
@@ -919,6 +956,13 @@ function! s:CheckLastNormalWindowDeferred()
 endfunction
 
 function! s:OpenStartifyIfNeeded()
+  " If any window already has Startify, do nothing
+  for w in range(1, winnr('$'))
+    if getbufvar(winbufnr(w), '&filetype') ==# 'startify'
+      return
+    endif
+  endfor
+
   " Count how many normal windows exist (excluding coc-explorer/startify)
   let normal_windows = 0
   for w in range(1, winnr('$'))
@@ -1026,7 +1070,27 @@ endfunction
 
 " Call the function when buffer is read or changed
 " Autocmds for reliable updates
-augroup TodoSigns
+" augroup TodoSigns
+"     autocmd!
+"     autocmd BufReadPost,BufWritePost,CursorHold,InsertLeave * call PlaceTodoSigns()
+" augroup END
+
+" Function to create header guards
+function! InsertHeaderGuard()
+    let l:filename = expand("%:t")        " get the filename only
+    let l:macro_name = toupper(substitute(l:filename, '\.', '_', 'g'))
+    execute 'normal! i#ifndef '.l:macro_name
+    execute 'normal! o#define '.l:macro_name
+    execute 'normal! o'
+    execute 'normal! o#endif // '.l:macro_name
+    execute 'normal! k'
+endfunction
+
+command! HeaderGuard call InsertHeaderGuard()
+nnoremap <leader>hg :HeaderGuard<CR>
+
+" Auto-run when a new header file is created
+augroup HeaderGuards
     autocmd!
-    autocmd BufReadPost,BufWritePost,CursorHold,InsertLeave * call PlaceTodoSigns()
+    autocmd BufNewFile *.h,*.hpp call InsertHeaderGuard()
 augroup END
