@@ -23,7 +23,7 @@ It includes keymaps, pickers, LSP integrations, and various toggles.
 | `L`          | Jump to line end        | n    |
 | `n`          | Next search centered    | n    |
 | `N`          | Previous search centered| n    |
-| `<Esc>`      | Exit terminal mode      | t    |
+| `<Esc><Esc>`      | Exit terminal mode      | t    |
 
 ### Indent & Paste
 | Key | Description                             | Mode |
@@ -47,7 +47,7 @@ It includes keymaps, pickers, LSP integrations, and various toggles.
 | `<leader>rf`| Rename File             | n    |
 
 ### Windows & Splits
-| Key        | Description            | Mode |
+| mey        | Description            | Mode |
 |------------|------------------------|------|
 | `<leader>sj` | Horizontal split     | n    |
 | `<leader>sl` | Vertical split       | n    |

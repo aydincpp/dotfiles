@@ -7,14 +7,14 @@ local win_utils = require("utils.window")
 
 --- Function to resize windows horizontally
 -- @usage resize_horizontal(amount)
--- @param amount number Indicates which key was pressed: 
+-- @param amount number Indicates which key was pressed:
 --   negative = <Left> key, positive = <Right> key
 -- The function calculates whether to grow or shrink the window based on its position
 local resize_horizontal = win_utils.resize_horizontal
 
 --- Function to resize windows vertically
 -- @usage resize_vertical(amount)
--- @param amount number Indicates which key was pressed: 
+-- @param amount number Indicates which key was pressed:
 --   negative = <Down> key, positive = <Up> key
 -- The function calculates whether to grow or shrink the window based on its position
 local resize_vertical = win_utils.resize_vertical
@@ -40,11 +40,11 @@ map.set("n", "n", "nzz", { desc = "Next search result centered" })
 map.set("n", "N", "Nzz", { desc = "Previous search result centered" })
 
 -- terminal
-map.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+map.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- save & quit
-map.set("n", "<leader>w", "<cmd>w<CR>", { desc = "Save buffer"})
-map.set("n", "<leader>W", "<cmd>wall<CR>", { desc = "Save all buffer"})
+map.set("n", "<leader>w", "<cmd>w<CR>", { desc = "Save buffer" })
+map.set("n", "<leader>W", "<cmd>wall<CR>", { desc = "Save all buffer" })
 map.set("n", "<leader>q", "<cmd>q<CR>", { desc = "Quit window" })
 map.set("n", "<leader>Q", "<cmd>qall<CR>", { desc = "Quit all windows" })
 map.set("n", "<leader>x", "<cmd>x<CR>", { desc = "Save and quit window" })
