@@ -2,6 +2,23 @@ return {
   "akinsho/bufferline.nvim",
   version = "*",
   dependencies = "nvim-tree/nvim-web-devicons",
+  init = function()
+    local function apply_highlights()
+      vim.api.nvim_set_hl(0, "TabLineFill", { link = "Normal" })
+      vim.api.nvim_set_hl(0, "BufferLineFill", { link = "Normal" })
+      vim.api.nvim_set_hl(0, "BufferLineOffsetSeparator", { link = "WinSeparator" })
+    end
+
+    apply_highlights()
+
+    local group_prefix = require("constants.groups").group_prefix
+    vim.api.nvim_create_autocmd("ColorScheme", {
+      group = vim.api.nvim_create_augroup(group_prefix .. "buffer-line-highlights", { clear = true }),
+      callback = function()
+        apply_highlights()
+      end
+    })
+  end,
   config = function()
     require("bufferline").setup({
       options = {
@@ -30,7 +47,7 @@ return {
         show_close_icon = true,
         show_tab_indicators = true,
         show_duplicate_prefix = true,
-        separator_style = "slant",
+        separator_style = "none",
         always_show_bufferline = true,
         auto_toggle_bufferline = true,
         hover = {

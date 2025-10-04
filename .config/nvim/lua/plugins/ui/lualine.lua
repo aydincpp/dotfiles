@@ -12,7 +12,7 @@ return {
     require("lualine").setup({
       options = {
         icons_enabled = true,
-        theme = "catppuccin",
+        theme = "auto",
 
         -- Component separators (between items inside sections)
         -- Examples:

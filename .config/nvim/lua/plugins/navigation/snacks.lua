@@ -17,8 +17,10 @@ return {
     map.set("n", "<leader>ud", function() Snacks.toggle.diagnostics():toggle() end, { desc = "Toggle Diagnostics" })
     map.set("n", "<leader>ul", function() Snacks.toggle.line_number():toggle() end, { desc = "Toggle Line Number" })
     map.set("n", "<leader>uc",
-      function() Snacks.toggle.option("conceallevel",
-          { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):toggle() end,
+      function()
+        Snacks.toggle.option("conceallevel",
+          { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):toggle()
+      end,
       { desc = "Toggle Conceal Level" })
     map.set("n", "<leader>uT", function() Snacks.toggle.treesitter():toggle() end, { desc = "Toggle Treesitter" })
     map.set("n", "<leader>ub",
@@ -57,7 +59,9 @@ return {
         enabled = true,
         timeout = 5000,
       },
-      explorer = { enabled = true },
+      explorer = {
+        enabled = true,
+      },
       picker = {
         layout = {
           layout = {
@@ -70,7 +74,7 @@ return {
             layout = {
               layout = {
                 border = false,
-                width = 35,
+                width = 32,
                 mouse = true,
                 minimal = true,
               }

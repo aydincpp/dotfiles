@@ -7,6 +7,24 @@ return {
   version = "1.*",
   build = "cargo build --release",
 
+  init = function()
+    local function apply_highlights()
+      vim.api.nvim_set_hl(0, "BlinkCmpMenu", { link = "Normal" })
+      vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { link = "Normal" })
+      vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { link = "PmenuSel" })
+    end
+
+    apply_highlights()
+
+    local group_prefix = require("constants.groups").group_prefix
+    vim.api.nvim_create_autocmd("ColorScheme", {
+      group = vim.api.nvim_create_augroup(group_prefix .. "blink-cmp-highlights", { clear = true }),
+      callback = function()
+        apply_highlights()
+      end
+    })
+  end,
+
   opts = {
     keymap = {
       preset = 'default',
