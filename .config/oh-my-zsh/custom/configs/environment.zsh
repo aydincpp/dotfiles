@@ -20,7 +20,10 @@ export LANG="en_US.UTF-8"
 export EDITOR="vim"
 export VISUAL="vim"
 
-# Specify the terminal type (used by some apps for capability detection)
+# Set Vim's runtime directory explicitly
+export VIMRUNTIMEDIR=/usr/local/share/vim/vim91
+
+# Specify the terminal type
 export TERM="xterm-256color"
 
 # Enable true color support in terminal applications
@@ -28,9 +31,6 @@ export COLORTERM="truecolor"
 
 # Define base directory for user configuration files (XDG spec)
 export XDG_CONFIG_HOME="$HOME/.config"
-
-# Set Vim's runtime directory explicitly (useful for custom builds)
-export VIMRUNTIMEDIR="/usr/local/share/vim/vim91"
 
 # Prepend custom man page location to the manual path
 export MANPATH="/usr/local/man:$MANPATH"
