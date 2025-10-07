@@ -2,6 +2,17 @@
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 
+# Extract the active monitor
+MONITOR=$(xrandr | grep " connected" | head -n 1 | cut -d " " -f1)
+
+# Extract the monitor resolution
+RESOLUTION=$(xrandr | awk -v mon="$MONITOR" '$1==mon {getline; print $1; exit}')
+
+# Set the referesh rate to 144
+if [ -n "$MONITOR" ] && [ -n "$RESOLUTION" ]; then
+  xrandr --output "$MONITOR" --mode "$RESOLUTION" --rate 144
+fi
+
 bspc monitor -d 1 2 3 4 5
 
 bspc config border_width         2
@@ -31,4 +42,3 @@ pkill polybar
 # Start notification
 pkill dunst
 dunst &
-
