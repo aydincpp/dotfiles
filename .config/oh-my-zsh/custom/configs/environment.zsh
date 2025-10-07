@@ -36,4 +36,4 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export MANPATH="/usr/local/man:$MANPATH"
 
 # Specify primary monitor output (can be used by window managers or scripts)
-export MONITOR=DP-2
+export MONITOR=$(xrandr | grep " connected" | head -n 1 | cut -d " " -f1)
