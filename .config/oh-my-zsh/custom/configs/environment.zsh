@@ -35,5 +35,8 @@ export XDG_CONFIG_HOME="$HOME/.config"
 # Prepend custom man page location to the manual path
 export MANPATH="/usr/local/man:$MANPATH"
 
-# Specify primary monitor output (can be used by window managers or scripts)
+# Specify primary monitor output
 export MONITOR=$(xrandr | grep " connected" | head -n 1 | cut -d " " -f1)
+
+# Monitor resolution
+export RESOLUTION=$(xrandr | awk -v mon="$MONITOR" '$1==mon {getline; print $1; exit}')

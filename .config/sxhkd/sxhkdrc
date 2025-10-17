@@ -4,23 +4,31 @@
 
 # terminal emulator
 super + Return
-	alacritty
+  alacritty
 
-# program launcher
+# rofi program launcher
 super + space
-	rofi -show drun
+  rofi -show drun
 
-# Switch between open windows
+# rofi open windows
 super + Tab
-    rofi -show window
+  rofi -show window
 
-# Search commands
+# rofi commands
 super + shift + r
-    rofi -show run
+  rofi -show run
+
+# rofi emoji
+super + period
+  rofi -modi emoji -show emoji
+
+# rofi math symbols
+super + shift + period
+  ~/.local/bin/rofi-math
 
 # make sxhkd reload its configuration files:
 super + Escape
-	pkill -USR1 -x sxhkd
+  pkill -USR1 -x sxhkd
 
 #
 # bspwm hotkeys
@@ -28,24 +36,24 @@ super + Escape
 
 # quit/restart bspwm
 super + alt + {q,r}
-	bspc {quit,wm -r}
+  bspc {quit,wm -r}
 
 # close and kill
-super + w
-	bspc node -c
+super + e
+  bspc node -c
 
 
 # alternate between the tiled and monocle layout
 super + m
-	bspc desktop -l next
+  bspc desktop -l next
 
 # send the newest marked node to the newest preselected node
 super + y
-	bspc node newest.marked.local -n newest.!automatic.local
+  bspc node newest.marked.local -n newest.!automatic.local
 
 # swap the current node and the biggest window
 super + g
-	bspc node -s biggest.window
+  bspc node -s biggest.window
 
 #
 # state/flags
@@ -53,11 +61,11 @@ super + g
 
 # set the window state
 super + {t,shift + t,s,f}
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+  bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 # set the node flags
 super + ctrl + {m,x,y,z}
-	bspc node -g {marked,locked,sticky,private}
+  bspc node -g {marked,locked,sticky,private}
 
 #
 # focus/swap
@@ -65,57 +73,29 @@ super + ctrl + {m,x,y,z}
 
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
-	bspc node -{f,s} {west,south,north,east}
-
-# focus the node for the given path jump
-super + {p,b,comma,period}
-	bspc node -f @{parent,brother,first,second}
+  bspc node -{f,s} {west,south,north,east}
 
 # focus the next/previous window in the current desktop
 super + {_,shift + }c
-	bspc node -f {next,prev}.local.!hidden.window
+  bspc node -f {next,prev}.local.!hidden.window
 
 # focus the next/previous desktop in the current monitor
 super + bracket{left,right}
-	bspc desktop -f {prev,next}.local
+  bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
 super + {grave,Tab}
-	bspc {node,desktop} -f last
+  bspc {node,desktop} -f last
 
 # focus the older or newer node in the focus history
 super + {o,i}
-	bspc wm -h off; \
-	bspc node {older,newer} -f; \
-	bspc wm -h on
+  bspc wm -h off; \
+  bspc node {older,newer} -f; \
+  bspc wm -h on
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
-
-#
-# Send window
-#
-
-# Send focused window to desktop 1
-super + shift + 1
-    bspc node -d 1
-
-# Send focused window to desktop 2
-super + shift + 2
-    bspc node -d 2
-
-# Send focused window to desktop 3
-super + shift + 3
-    bspc node -d 3
-
-# Send focused window to desktop 4
-super + shift + 4
-    bspc node -d 4
-
-# Send focused window to desktop 5
-super + shift + 5
-    bspc node -d 5
+  bspc {desktop -f,node -d} '^{1-9,10}'
 
 #
 # preselect
@@ -123,19 +103,19 @@ super + shift + 5
 
 # preselect the direction
 super + ctrl + {h,j,k,l}
-	bspc node -p {west,south,north,east}
+  bspc node -p {west,south,north,east}
 
 # preselect the ratio
 super + ctrl + {1-9}
-	bspc node -o 0.{1-9}
+  bspc node -o 0.{1-9}
 
 # cancel the preselection for the focused node
 super + ctrl + space
-	bspc node -p cancel
+  bspc node -p cancel
 
 # cancel the preselection for the focused desktop
 super + ctrl + shift + space
-	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+  bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
 #
 # move/resize
@@ -143,38 +123,46 @@ super + ctrl + shift + space
 
 # expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
-	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+  bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 # contract a window by moving one of its side inward
 super + alt + shift + {h,j,k,l}
-	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+  bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 # move a floating window
 super + {Left,Down,Up,Right}
-	bspc node -v {-20 0,0 20,0 -20,20 0}
+  bspc node -v {-20 0,0 20,0 -20,20 0}
 
 #
 # Volume control
 #
 
 XF86AudioRaiseVolume
-    pamixer --increase 5
+  pamixer --increase 5
 
 XF86AudioLowerVolume
-    pamixer --decrease 5
+  pamixer --decrease 5
 
 XF86AudioMute
-    pamixer --toggle-mute
+  pamixer --toggle-mute
 
 super + F7
-    pamixer --decrease 5
+  pamixer --decrease 5
 
 super + F8
-    pamixer --increase 5
+  pamixer --increase 5
 
 super + F9
-    pamixer --toggle-mute
+  pamixer --toggle-mute
 
+#
+# Audio output
+#
+#
+# Audio output
+#
+super + F10
+  /home/aydin/.local/bin/toggle-audio
 
 #
 # Screenshot
@@ -182,12 +170,13 @@ super + F9
 
 # Screenshot - Selected Region
 super + shift + s
-    maim -s ~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && notify-send "Screenshot (region) saved"
+  maim -s ~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && notify-send "Screenshot (region) saved"
 
 # Screenshot - Fullscreen
 super + shift + f
-    maim ~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && notify-send "Screenshot (fullscreen) saved"
+  maim ~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && notify-send "Screenshot (fullscreen) saved"
 
 # Screenshot - Active Window
 super + shift + w
-    maim -i $(xdotool getactivewindow) ~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && notify-send "Screenshot (window) saved"
+  maim -i $(xdotool getactivewindow) ~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png && notify-send "Screenshot (window) saved"
+
