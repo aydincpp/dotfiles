@@ -1,265 +1,267 @@
-π  Greek Small Letter Pi  
-∞  Infinity  
-Σ  Greek Capital Letter Sigma  
-√  Square Root  
-∛  Cube Root  
-∜  Fourth Root  
-∫  Integral  
-∬  Double Integral  
-∭  Triple Integral  
-∮  Contour Integral  
-∯  Surface Integral  
-∰  Volume Integral  
-∱  Clockwise Integral  
-∲  Clockwise Contour Integral  
-∳  Anticlockwise Contour Integral  
-∀  For All  
-∁  Complement  
-∂  Partial Differential  
-∃  There Exists  
-∄  There Does Not Exist  
-∅  Empty Set  
-∆  Increment  
-∇  Nabla  
-∈  Element Of  
-∉  Not an Element Of  
-∊  Small Element Of  
-∋  Contains As Member  
-∌  Does Not Contain As Member  
-∍  Small Contains As Member  
-∏  N-Ary Product  
-∐  N-Ary Coproduct  
-∑  N-Ary Summation  
-−  Minus Sign  
-∓  Minus-or-Plus Sign  
-∔  Dot Plus  
-∕  Division Slash  
-∖  Set Minus  
-∗  Asterisk Operator  
-∘  Ring Operator  
-∙  Bullet Operator  
-∝  Proportional To  
-∟  Right Angle  
-∠  Angle  
-∡  Measured Angle  
-∢  Spherical Angle  
-∣  Divides  
-∤  Does Not Divide  
-∥  Parallel To  
-∦  Not Parallel To  
-∧  Logical And  
-∨  Logical Or  
-∩  Intersection  
-∪  Union  
-∴  Therefore  
-∵  Because  
-∶  Ratio  
-∷  Proportion  
-∸  Dot Minus  
-∹  Excess  
-∺  Geometric Proportion  
-∻  Homothetic  
-∼  Tilde Operator  
-∽  Reversed Tilde  
-∾  Inverted Lazy S  
-∿  Sine Wave  
-≀  Wreath Product  
-≁  Not Tilde  
-≂  Minus Tilde  
-≃  Asymptotically Equal To  
-≄  Not Asymptotically Equal To  
-≅  Approximately Equal To  
-≆  Approximately But Not Actually Equal To  
-≇  Neither Approximately nor Actually Equal To  
-≈  Almost Equal To  
-≉  Not Almost Equal To  
-≊  Almost Equal or Equal To  
-≋  Triple Tilde  
-≌  All Equal To  
-≍  Equivalent To  
-≎  Geometrically Equivalent To  
-≏  Difference Between  
-≐  Approaches the Limit  
-≑  Geometrically Equal To  
-≒  Approximately Equal To or the Image Of  
-≓  Image of or Approximately Equal To  
-≔  Colon Equals  
-≕  Equals Colon  
-≖  Ring In Equal To  
-≗  Ring Equal To  
-≘  Corresponds To  
-≙  Estimates  
-≚  Equiangular To  
-≛  Star Equals  
-≜  Delta Equal To  
-≝  Equal To By Definition  
-≞  Measured By  
-≟  Questioned Equal To  
-≠  Not Equal To  
-≡  Identical To  
-≢  Not Identical To  
-≣  Strictly Equivalent To  
-≤  Less-Than or Equal To  
-≥  Greater-Than or Equal To  
-≦  Less-Than Over Equal To  
-≧  Greater-Than Over Equal To  
-≨  Less-Than But Not Equal To  
-≩  Greater-Than But Not Equal To  
-≪  Much Less-Than  
-≫  Much Greater-Than  
-≬  Between  
-≭  Not Equivalent To  
-≮  Not Less-Than  
-≯  Not Greater-Than  
-≰  Neither Less-Than nor Equal To  
-≱  Neither Greater-Than nor Equal To  
-≲  Less-Than or Equivalent To  
-≳  Greater-Than or Equivalent To  
-≴  Neither Less-Than nor Equivalent To  
-≵  Neither Greater-Than nor Equivalent To  
-≶  Less-Than or Greater-Than  
-≷  Greater-Than or Less-Than  
-≸  Neither Less-Than nor Greater-Than  
-≹  Neither Greater-Than nor Less-Than  
-≺  Precedes  
-≻  Succeeds  
-≼  Precedes or Equal To  
-≽  Succeeds or Equal To  
-≾  Precedes or Equivalent To  
-≿  Succeeds or Equivalent To  
-⊀  Does Not Precede  
-⊁  Does Not Succeed  
-⊂  Subset Of  
-⊃  Superset Of  
-⊄  Not a Subset Of  
-⊅  Not a Superset Of  
-⊆  Subset of or Equal To  
-⊇  Superset of or Equal To  
-⊈  Neither a Subset of nor Equal To  
-⊉  Neither a Superset of nor Equal To  
-⊊  Subset of with Not Equal To  
-⊋  Superset of with Not Equal To  
-⊌  Multiset  
-⊍  Multiset Multiplication  
-⊎  Multiset Union  
-⊏  Square Image Of  
-⊐  Square Original Of  
-⊑  Square Image of or Equal To  
-⊒  Square Original of or Equal To  
-⊓  Square Cap  
-⊔  Square Cup  
-⊕  Circled Plus  
-⊖  Circled Minus  
-⊗  Circled Times  
-⊘  Circled Division Slash  
-⊙  Circled Dot Operator  
-⊚  Circled Ring Operator  
-⊛  Circled Asterisk Operator  
-⊜  Circled Equals  
-⊝  Circled Dash  
-⊞  Squared Plus  
-⊟  Squared Minus  
-⊠  Squared Times  
-⊡  Squared Dot Operator  
-⊢  Right Tack  
-⊣  Left Tack  
-⊤  Down Tack  
-⊥  Up Tack  
-⊦  Assertion  
-⊧  Models  
-⊨  True  
-⊩  Forces  
-⊪  Triple Vertical Bar Right Turnstile  
-⊫  Double Vertical Bar Double Right Turnstile  
-⊬  Does Not Prove  
-⊭  Not True  
-⊮  Does Not Force  
-⊯  Negated Double Vertical Bar Double Right Turnstile  
-⊰  Precedes Under Relation  
-⊱  Succeeds Under Relation  
-⊲  Normal Subgroup Of  
-⊳  Contains As Normal Subgroup  
-⊴  Normal Subgroup of or Equal To  
-⊵  Contains As Normal Subgroup or Equal To  
-⊶  Original Of  
-⊷  Image Of  
-⊸  Multimap  
-⊹  Hermitian Conjugate Matrix  
-⊺  Intercalate  
-⊻  Xor  
-⊼  Nand  
-⊽  Nor  
-⊾  Right Angle with Arc  
-⊿  Right Triangle  
-⋀  N-Ary Logical And  
-⋁  N-Ary Logical Or  
-⋂  N-Ary Intersection  
-⋃  N-Ary Union  
-⋄  Diamond Operator  
-⋅  Dot Operator  
-⋆  Star Operator  
-⋇  Division Times  
-⋈  Bowtie  
-⋉  Left Normal Factor Semidirect Product  
-⋊  Right Normal Factor Semidirect Product  
-⋋  Left Semidirect Product  
-⋌  Right Semidirect Product  
-⋍  Reversed Tilde Equals  
-⋎  Curly Logical Or  
-⋏  Curly Logical And  
-⋐  Double Subset  
-⋑  Double Superset  
-⋒  Double Intersection  
-⋓  Double Union  
-⋔  Pitchfork  
-⋕  Equal and Parallel To  
-⋖  Less-Than with Dot  
-⋗  Greater-Than with Dot  
-⋘  Very Much Less-Than  
-⋙  Very Much Greater-Than  
-⋚  Less-Than Equal To or Greater-Than  
-⋛  Greater-Than Equal To or Less-Than  
-⋜  Equal To or Less-Than  
-⋝  Equal To or Greater-Than  
-⋞  Equal To or Precedes  
-⋟  Equal To or Succeeds  
-⋠  Does Not Precede or Equal  
-⋡  Does Not Succeed or Equal  
-⋢  Not Square Image of or Equal To  
-⋣  Not Square Original of or Equal To  
-⋤  Square Image of or Not Equal To  
-⋥  Square Original of or Not Equal To  
-⋦  Less-Than But Not Equivalent To  
-⋧  Greater-Than But Not Equivalent To  
-⋨  Precedes But Not Equivalent To  
-⋩  Succeeds But Not Equivalent To  
-⋪  Not Normal Subgroup Of  
-⋫  Does Not Contain As Normal Subgroup  
-⋬  Not Normal Subgroup of or Equal To  
-⋭  Does Not Contain As Normal Subgroup or Equal  
-⋮  Vertical Ellipsis  
-⋯  Midline Horizontal Ellipsis  
-⋰  Up Right Diagonal Ellipsis  
-⋱  Down Right Diagonal Ellipsis  
-⁺  Superscript Plus Sign  
-⁻  Superscript Minus  
-⁼  Superscript Equals Sign  
-⁽  Superscript Left Parenthesis  
-⁾  Superscript Right Parenthesis  
-ⁿ  Superscript Latin Small Letter N  
-₊  Subscript Plus Sign  
-₋  Subscript Minus  
-₌  Subscript Equals Sign  
-₍  Subscript Left Parenthesis  
-₎  Subscript Right Parenthesis  
-×  Multiplication Sign  
-✖  Heavy Multiplication X  
-﹢  Small Plus Sign  
-﹣  Small Hyphen-Minus  
-＋  Fullwidth Plus Sign  
-－  Fullwidth Hyphen-Minus  
-／  Fullwidth Solidus  
-＝  Fullwidth Equals Sign  
-÷  Division Sign  
-±  Plus Minus  
-∎  End of Proof  
+θ  theta
+π  pi
+Σ  summation
+√  square_root
+∞  infinity
+∆  delta
+∫  integral
+≈  approximately_equal
+≠  not_equal
+≤  less_than_or_equal
+≥  greater_than_or_equal
+→  arrow_right
+←  arrow_left
+↔  arrow_both
+×  multiply
+÷  divide
+⊕  direct_sum
+⊗  tensor_product
+∂  partial_derivative
+∇  nabla
+∛  cube_root
+∜  fourth_root
+∬  double_integral
+∭  triple_integral
+∮  contour_integral
+∯  surface_integral
+∰  volume_integral
+∱  clockwise_integral
+∲  clockwise_contour_integral
+∳  anticlockwise_contour_integral
+∀  for_all
+∁  complement
+∃  there_exists
+∄  there_does_not_exist
+∅  empty_set
+∈  element_of
+∉  not_an_element_of
+∊  small_element_of
+∋  contains_as_member
+∌  does_not_contain_as_member
+∍  small_contains_as_member
+∏  n_ary_product
+∐  n_ary_coproduct
+∑  n_ary_summation
+−  minus_sign
+∓  minus_or_plus_sign
+∔  dot_plus
+∕  division_slash
+∖  set_minus
+∗  asterisk_operator
+∘  ring_operator
+∙  bullet_operator
+∝  proportional_to
+∟  right_angle
+∠  angle
+∡  measured_angle
+∢  spherical_angle
+∣  divides
+∤  does_not_divide
+∥  parallel_to
+∦  not_parallel_to
+∧  logical_and
+∨  logical_or
+∩  intersection
+∪  union
+∴  therefore
+∵  because
+∶  ratio
+∷  proportion
+∸  dot_minus
+∹  excess
+∺  geometric_proportion
+∻  homothetic
+∼  tilde_operator
+∽  reversed_tilde
+∾  inverted_lazy_s
+∿  sine_wave
+≀  wreath_product
+≁  not_tilde
+≂  minus_tilde
+≃  asymptotically_equal_to
+≄  not_asymptotically_equal_to
+≅  approximately_equal_to
+≆  approximately_but_not_actually_equal_to
+≇  neither_approximately_nor_actually_equal_to
+≊  almost_equal_or_equal_to
+≋  triple_tilde
+≌  all_equal_to
+≍  equivalent_to
+≎  geometrically_equivalent_to
+≏  difference_between
+≐  approaches_the_limit
+≑  geometrically_equal_to
+≒  approximately_equal_to_or_the_image_of
+≓  image_of_or_approximately_equal_to
+≔  colon_equals
+≕  equals_colon
+≖  ring_in_equal_to
+≗  ring_equal_to
+≘  corresponds_to
+≙  estimates
+≚  equiangular_to
+≛  star_equals
+≜  delta_equal_to
+≝  equal_to_by_definition
+≞  measured_by
+≟  questioned_equal_to
+≡  identical_to
+≢  not_identical_to
+≣  strictly_equivalent_to
+≦  less_than_over_equal_to
+≧  greater_than_over_equal_to
+≨  less_than_but_not_equal_to
+≩  greater_than_but_not_equal_to
+≪  much_less_than
+≫  much_greater_than
+≬  between
+≭  not_equivalent_to
+≮  not_less_than
+≯  not_greater_than
+≰  neither_less_than_nor_equal_to
+≱  neither_greater_than_nor_equal_to
+≲  less_than_or_equivalent_to
+≳  greater_than_or_equivalent_to
+≴  neither_less_than_nor_equivalent_to
+≵  neither_greater_than_nor_equivalent_to
+≶  less_than_or_greater_than
+≷  greater_than_or_less_than
+≸  neither_less_than_nor_greater_than
+≹  neither_greater_than_nor_less_than
+≺  precedes
+≻  succeeds
+≼  precedes_or_equal_to
+≽  succeeds_or_equal_to
+≾  precedes_or_equivalent_to
+≿  succeeds_or_equivalent_to
+⊀  does_not_precede
+⊁  does_not_succeed
+⊂  subset_of
+⊃  superset_of
+⊄  not_a_subset_of
+⊅  not_a_superset_of
+⊆  subset_of_or_equal_to
+⊇  superset_of_or_equal_to
+⊈  neither_a_subset_of_nor_equal_to
+⊉  neither_a_superset_of_nor_equal_to
+⊊  subset_of_with_not_equal_to
+⊋  superset_of_with_not_equal_to
+⊌  multiset
+⊍  multiset_multiplication
+⊎  multiset_union
+⊏  square_image_of
+⊐  square_original_of
+⊑  square_image_of_or_equal_to
+⊒  square_original_of_or_equal_to
+⊓  square_cap
+⊔  square_cup
+⊖  circled_minus
+⊘  circled_division_slash
+⊙  circled_dot_operator
+⊚  circled_ring_operator
+⊛  circled_asterisk_operator
+⊜  circled_equals
+⊝  circled_dash
+⊞  squared_plus
+⊟  squared_minus
+⊠  squared_times
+⊡  squared_dot_operator
+⊢  right_tack
+⊣  left_tack
+⊤  down_tack
+⊥  up_tack
+⊦  assertion
+⊧  models
+⊨  true
+⊩  forces
+⊪  triple_vertical_bar_right_turnstile
+⊫  double_vertical_bar_double_right_turnstile
+⊬  does_not_prove
+⊭  not_true
+⊮  does_not_force
+⊯  negated_double_vertical_bar_double_right_turnstile
+⊰  precedes_under_relation
+⊱  succeeds_under_relation
+⊲  normal_subgroup_of
+⊳  contains_as_normal_subgroup
+⊴  normal_subgroup_of_or_equal_to
+⊵  contains_as_normal_subgroup_or_equal_to
+⊶  original_of
+⊷  image_of
+⊸  multimap
+⊹  hermitian_conjugate_matrix
+⊺  intercalate
+⊻  xor
+⊼  nand
+⊽  nor
+⊾  right_angle_with_arc
+⊿  right_triangle
+⋀  n_ary_logical_and
+⋁  n_ary_logical_or
+⋂  n_ary_intersection
+⋃  n_ary_union
+⋄  diamond_operator
+⋅  dot_operator
+⋆  star_operator
+⋇  division_times
+⋈  bowtie
+⋉  left_normal_factor_semidirect_product
+⋊  right_normal_factor_semidirect_product
+⋋  left_semidirect_product
+⋌  right_semidirect_product
+⋍  reversed_tilde_equals
+⋎  curly_logical_or
+⋏  curly_logical_and
+⋐  double_subset
+⋑  double_superset
+⋒  double_intersection
+⋓  double_union
+⋔  pitchfork
+⋕  equal_and_parallel_to
+⋖  less_than_with_dot
+⋗  greater_than_with_dot
+⋘  very_much_less_than
+⋙  very_much_greater_than
+⋚  less_than_equal_to_or_greater_than
+⋛  greater_than_equal_to_or_less_than
+⋜  equal_to_or_less_than
+⋝  equal_to_or_greater_than
+⋞  equal_to_or_precedes
+⋟  equal_to_or_succeeds
+⋠  does_not_precede_or_equal
+⋡  does_not_succeed_or_equal
+⋢  not_square_image_of_or_equal_to
+⋣  not_square_original_of_or_equal_to
+⋤  square_image_of_or_not_equal_to
+⋥  square_original_of_or_not_equal_to
+⋦  less_than_but_not_equivalent_to
+⋧  greater_than_but_not_equivalent_to
+⋨  precedes_but_not_equivalent_to
+⋩  succeeds_but_not_equivalent_to
+⋪  not_normal_subgroup_of
+⋫  does_not_contain_as_normal_subgroup
+⋬  not_normal_subgroup_of_or_equal_to
+⋭  does_not_contain_as_normal_subgroup_or_equal
+⋮  vertical_ellipsis
+⋯  midline_horizontal_ellipsis
+⋰  up_right_diagonal_ellipsis
+⋱  down_right_diagonal_ellipsis
+⁺  superscript_plus_sign
+⁻  superscript_minus
+⁼  superscript_equals_sign
+⁽  superscript_left_parenthesis
+⁾  superscript_right_parenthesis
+ⁿ  superscript_latin_small_letter_n
+₊  subscript_plus_sign
+₋  subscript_minus
+₌  subscript_equals_sign
+₍  subscript_left_parenthesis
+₎  subscript_right_parenthesis
+✖  heavy_multiplication_x
+﹢  small_plus_sign
+﹣  small_hyphen_minus
+＋  fullwidth_plus_sign
+－  fullwidth_hyphen_minus
+／  fullwidth_solidus
+＝  fullwidth_equals_sign
+∎  end_of_proof
